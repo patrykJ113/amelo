@@ -1,0 +1,11 @@
+<div
+  [ngClass]="[
+    isVertical ? 'flex-col' : '',
+    gapClass,
+    itemsClass,
+    justifyClass
+  ]"
+  class="flex"
+>
+  <ng-content/>
+</div>
