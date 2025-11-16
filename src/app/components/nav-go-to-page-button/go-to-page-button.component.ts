@@ -2,14 +2,14 @@ import {Component, Input} from '@angular/core';
 import {RouterLink} from '@angular/router';
 
 @Component({
-  selector: 'nav-button',
+  selector: 'nav-go-to-page-button',
   imports: [
     RouterLink
   ],
-  templateUrl: './nav-button.html',
-  styleUrl: './nav-button.css'
+  templateUrl: './go-to-page-button.component.html',
+  styleUrl: './go-to-page-button.component.css'
 })
-export class NavButton {
+export class NavGoToPageButton {
   @Input() label: string = 'Click'
   @Input() pageUrl: string = '/'
 }

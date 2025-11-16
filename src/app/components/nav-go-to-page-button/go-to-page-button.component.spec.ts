@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavButton } from './nav-button';
+import { NavGoToPageButton } from './go-to-page-button.component';
 
 describe('NavButton', () => {
-  let component: NavButton;
-  let fixture: ComponentFixture<NavButton>;
+  let component: NavGoToPageButton;
+  let fixture: ComponentFixture<NavGoToPageButton>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavButton]
+      imports: [NavGoToPageButton]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NavButton);
+    fixture = TestBed.createComponent(NavGoToPageButton);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
