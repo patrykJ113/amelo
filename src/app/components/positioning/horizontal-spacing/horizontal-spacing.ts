@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Gap} from '@typings/gap';
 import {ItemsAlignment} from '@typings/items-alignment';
 import {JustifyAlignment} from '@typings/justify-alignment';
-import {Spacing} from '@components/spacing/spacing';
+import {Spacing} from '@components/positioning/spacing/spacing';
 
 @Component({
   selector: 'horizontal-spacing',

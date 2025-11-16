@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {AppNav} from '@components/app-nav/app-nav';
+import {AppNav} from '@components/app/app-nav/app-nav';
 
 @Component({
   selector: 'main-layout',

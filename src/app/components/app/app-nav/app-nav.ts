@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {HorizontalSpacing} from '@components/horizontal-spacing/horizontal-spacing';
+import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/horizontal-spacing';
 import {NavButton} from '@components/nav-button/nav-button';
 import {Logo} from '@components/logo/logo';
 
