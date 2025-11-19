@@ -2,18 +2,27 @@
   <input
     type="text"
     required
-    class="peer w-full border border-gray-300 rounded-lg min-h-[38px]
-           px-3 pt-4 pb-1.5 text-xs outline-none
-           focus:border-blue-500 focus:ring-3 focus:ring-blue-500/30
-           transition-all duration-200
+    [formControl]="control"
+    class="peer w-full border-2 rounded-lg
+           px-3 pt-6 pb-1.5 outline-none text-gray-600
+           transition-all duration-200 focus:ring-4
            placeholder-transparent"
-    placeholder=" ">
+    [ngClass]="isError ?
+              'focus:border-red-500 focus:ring-red-500/30 border-red-500' :
+              'focus:border-blue-500 focus:ring-blue-500/30 border-gray-300'"
+    placeholder=" "
+  >
 
   <label
     class="absolute left-3 transition-all duration-200 pointer-events-none
-           top-1.5 text-[8px] text-gray-600 leading-3
-           peer-focus:top-1.5 peer-focus:text-[8px] peer-focus:text-blue-500
-           peer-placeholder-shown:top-[18px] peer-placeholder-shown:text-xs">
+           top-1 text-sm text-gray-500 leading-6
+           peer-focus:top-1 peer-focus:text-sm peer-focus:leading-6
+           peer-placeholder-shown:top-6 peer-placeholder-shown:text-base
+           peer-placeholder-shown:leading-6"
+    [ngClass]="isError ?
+               'peer-focus:text-red-500 peer-placeholder-shown:text-red-600' :
+               'peer-focus:text-blue-500 peer-placeholder-shown:text-gray-600'"
+  >
     {{ label }}
   </label>
 </div>
