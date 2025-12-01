@@ -14,6 +14,7 @@ import {NgClass} from '@angular/common';
 export class AppInput {
   @Input() label: string = ''
   @Input() disabled: boolean = false
+  @Input() isTextArea: boolean = false
   @Input() control!: FormControl
 
   get isError() {
