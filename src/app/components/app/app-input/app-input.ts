@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
 
@@ -11,11 +11,15 @@ import {NgClass} from '@angular/common';
   templateUrl: './app-input.html',
   styleUrl: './app-input.css'
 })
-export class AppInput {
+export class AppInput implements OnInit {
   @Input() label: string = ''
   @Input() disabled: boolean = false
   @Input() isTextArea: boolean = false
   @Input() control!: FormControl
+
+  ngOnInit() {
+    if(this.disabled) this.control.disable()
+  }
 
   get isError() {
     return this.control.invalid && ( this.control.touched || this.control.dirty )

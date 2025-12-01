@@ -27,6 +27,8 @@ export class Combobox implements OnInit {
 
   ngOnInit() {
     this.resetFilteredOptions()
+
+    if (this.disabled) this.control.disable()
   }
 
   handleInput() {
@@ -42,7 +44,6 @@ export class Combobox implements OnInit {
   handleBlur() {
     this.isOpen = false
     this.resetIndex()
-    this.filteredOptions = this.options
     this.resetFilteredOptions()
   }
 

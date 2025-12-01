@@ -1,10 +1,10 @@
-<div class="relative inline-block">
+<div class="relative">
   <input
     #input
     type="text"
     placeholder=" "
     class="peer w-full border-2 rounded-lg
-           px-3 pt-6 pb-1.5 outline-none text-gray-600
+           px-3 pt-6 pb-1.5 outline-none
            transition-all duration-200 focus:ring-4
            placeholder-transparent"
     [formControl]="control"
@@ -12,20 +12,28 @@
     (focus)="handleFocus()"
     (blur)="handleBlur()"
     (keydown)="handleKeyDown($event)"
-    [ngClass]="isError ?
+    [ngClass]="[isError ?
               'focus:border-red-500 focus:ring-red-500/30 border-red-500' :
-              'focus:border-blue-500 focus:ring-blue-500/30 border-gray-300'"
+              'focus:border-blue-500 focus:ring-blue-500/30 border-gray-300',
+              disabled ?
+                '!border-gray-200 cursor-not-allowed text-gray-300' :
+                'text-gray-600'
+              ]"
   >
 
   <label
     class="absolute left-3 transition-all duration-200 pointer-events-none
-           top-1 text-sm text-gray-500 leading-6
+           top-1 text-sm  leading-6
            peer-focus:top-1 peer-focus:text-sm peer-focus:leading-6
            peer-placeholder-shown:top-6 peer-placeholder-shown:text-base
            peer-placeholder-shown:leading-6"
-    [ngClass]="isError ?
+    [ngClass]="[isError ?
                'peer-focus:text-red-500 peer-placeholder-shown:text-red-600' :
-               'peer-focus:text-blue-500 peer-placeholder-shown:text-gray-600'"
+               'peer-focus:text-blue-500 peer-placeholder-shown:text-gray-600',
+               disabled ?
+                'peer-placeholder-shown:!text-gray-300 text-gray-300' :
+                'text-gray-500'
+               ]"
   >
     {{ label }}
   </label>
@@ -33,13 +41,17 @@
   <div class="absolute top-1/2 -translate-y-1/2 right-2 py-2 bg-white flex items-center pointer-events-none">
     <svg-icon
       src="arrow.svg"
-      class="size-6 inline-flex !text-gray-600 transition-all duration-200"
-      [ngClass]="isOpen ? 'rotate-180' : 'rotate-0'"
+      class="size-6 inline-flex text-gray-600 transition-all duration-200"
+      [ngClass]="[isOpen ? 'rotate-180' : 'rotate-0',
+                  disabled ?
+                  '!text-gray-300' :
+                  'text-gray-600'
+      ]"
     />
   </div>
 
   @if (isOpen) {
-    <div class="absolute top-[calc(100%+12px)] left-0 w-full border bg-white border-gray-300 rounded-lg max-h-72 overflow-scroll">
+    <div class="absolute top-[calc(100%+12px)] left-0 w-full border bg-white border-gray-300 rounded-lg max-h-72 overflow-scroll z-10">
       @if (filteredOptions.length) {
         @for (option of filteredOptions; track option.id) {
           <div
