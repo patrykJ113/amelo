@@ -1,0 +1,100 @@
+import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {DropdownOption} from '@typings/dropdown-option';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {NgClass} from '@angular/common';
+import {SvgIconComponent} from 'angular-svg-icon';
+
+@Component({
+  selector: 'combobox',
+  imports: [
+    ReactiveFormsModule,
+    NgClass,
+    SvgIconComponent
+  ],
+  templateUrl: './combobox.html',
+  styleUrl: './combobox.css'
+})
+export class Combobox implements OnInit {
+  @Input() options: DropdownOption[] = []
+  @Input() label: string = ''
+  @Input() disabled: boolean = false
+  @Input() control!: FormControl
+  @ViewChild('input') inputRef!: ElementRef<HTMLInputElement>;
+  @ViewChildren('optionElement') optionRef!: QueryList<ElementRef<HTMLDivElement>>;
+  filteredOptions: DropdownOption[] = []
+  isOpen: boolean = false
+  indexOfFocusedOption: number = 0
+
+  ngOnInit() {
+    this.resetFilteredOptions()
+  }
+
+  handleInput() {
+    this.filteredOptions = this.options.filter(
+      opt => opt.label.toLowerCase().includes(this.control.getRawValue().toLowerCase())
+    )
+  }
+
+  handleFocus() {
+    this.isOpen = true
+  }
+
+  handleBlur() {
+    this.isOpen = false
+    this.resetIndex()
+    this.filteredOptions = this.options
+    this.resetFilteredOptions()
+  }
+
+  handleMouseDownOnOption(option: DropdownOption) {
+    this.control.setValue(option.label)
+    console.log(option)
+  }
+
+  scrollFocusedOptionIntoView() {
+    const element = this.optionRef.toArray()[this.indexOfFocusedOption];
+    element?.nativeElement.scrollIntoView({block: 'nearest'});
+  }
+
+  handleKeyDown({key}: KeyboardEvent) {
+    if (key === 'ArrowDown') {
+      if (this.indexOfFocusedOption !== this.options.length - 1) {
+        ++this.indexOfFocusedOption
+      } else {
+        this.resetIndex()
+      }
+      this.scrollFocusedOptionIntoView();
+    }
+
+    if (key === 'ArrowUp') {
+      if (this.indexOfFocusedOption !== 0) {
+        --this.indexOfFocusedOption
+      } else {
+        this.indexOfFocusedOption = this.options.length - 1
+      }
+      this.scrollFocusedOptionIntoView()
+    }
+
+    if (key === 'Enter') {
+      console.log(this.options[this.indexOfFocusedOption])
+      this.control.setValue(this.options[this.indexOfFocusedOption].label)
+      this.inputRef.nativeElement.blur()
+    }
+
+    if (key === 'Escape') {
+      this.inputRef.nativeElement.blur()
+    }
+  }
+
+  get isError() {
+    return this.control.invalid && (this.control.touched || this.control.dirty)
+  }
+
+  resetIndex() {
+    this.indexOfFocusedOption = 0
+  }
+
+  resetFilteredOptions() {
+    this.filteredOptions = this.options
+  }
+}
