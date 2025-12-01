@@ -48,7 +48,6 @@ export class Combobox implements OnInit {
 
   handleMouseDownOnOption(option: DropdownOption) {
     this.control.setValue(option.label)
-    console.log(option)
   }
 
   scrollFocusedOptionIntoView() {
@@ -76,7 +75,6 @@ export class Combobox implements OnInit {
     }
 
     if (key === 'Enter') {
-      console.log(this.options[this.indexOfFocusedOption])
       this.control.setValue(this.options[this.indexOfFocusedOption].label)
       this.inputRef.nativeElement.blur()
     }
