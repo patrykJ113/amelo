@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {InputType} from '@typings/input-type';
+import {getErrorMessage} from '@helpers/get-error-message';
 
 @Component({
   selector: 'app-input',
@@ -25,5 +26,9 @@ export class AppInput implements OnInit {
 
   get isError() {
     return this.control.invalid && ( this.control.touched || this.control.dirty )
+  }
+
+  getErrorMsg() {
+    return getErrorMessage(this.control, this.label)
   }
 }

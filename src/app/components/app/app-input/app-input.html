@@ -51,6 +51,6 @@
                 'text-gray-500'
                 ]"
   >
-    {{ label }}
+    {{ isError ? getErrorMsg() : label }}
   </label>
 </div>

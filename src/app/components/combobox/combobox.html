@@ -28,14 +28,14 @@
            peer-placeholder-shown:top-6 peer-placeholder-shown:text-base
            peer-placeholder-shown:leading-6"
     [ngClass]="[isError ?
-               'peer-focus:text-red-500 peer-placeholder-shown:text-red-600' :
+               'peer-focus:text-red-500 peer-placeholder-shown:text-red-600 text-red-500' :
                'peer-focus:text-blue-500 peer-placeholder-shown:text-gray-600',
                disabled ?
                 'peer-placeholder-shown:!text-gray-300 text-gray-300' :
                 'text-gray-500'
                ]"
   >
-    {{ label }}
+    {{ isError ? getErrorMsg() : label }}
   </label>
 
   <div class="absolute top-1/2 -translate-y-1/2 right-2 py-2 bg-white flex items-center pointer-events-none">

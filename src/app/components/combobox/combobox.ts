@@ -3,6 +3,7 @@ import {DropdownOption} from '@typings/dropdown-option';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {SvgIconComponent} from 'angular-svg-icon';
+import {getErrorMessage} from '@helpers/get-error-message';
 
 @Component({
   selector: 'combobox',
@@ -27,7 +28,6 @@ export class Combobox implements OnInit {
 
   ngOnInit() {
     this.resetFilteredOptions()
-
     if (this.disabled) this.control.disable()
   }
 
@@ -95,5 +95,9 @@ export class Combobox implements OnInit {
 
   resetFilteredOptions() {
     this.filteredOptions = this.options
+  }
+
+  getErrorMsg() {
+    return getErrorMessage(this.control, this.label)
   }
 }
