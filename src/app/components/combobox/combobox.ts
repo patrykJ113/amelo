@@ -42,9 +42,17 @@ export class Combobox implements OnInit {
   }
 
   handleBlur() {
+    this.setValueOnBlur()
     this.isOpen = false
     this.resetIndex()
     this.resetFilteredOptions()
+  }
+
+  setValueOnBlur() {
+    const value = this.control.getRawValue().toLowerCase()
+    if (!value) return
+    const firstMatchedOption = this.filteredOptions.find(option => option.label.toLowerCase().startsWith(value))
+    if(firstMatchedOption) this.control.setValue(firstMatchedOption.label)
   }
 
   handleMouseDownOnOption(option: DropdownOption) {
