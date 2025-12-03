@@ -1,6 +1,14 @@
-import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
 import {DropdownOption} from '@typings/dropdown-option';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {getErrorMessage} from '@helpers/get-error-message';
@@ -78,13 +86,13 @@ export class Combobox implements OnInit {
       if (this.indexOfFocusedOption !== 0) {
         --this.indexOfFocusedOption
       } else {
-        this.indexOfFocusedOption = this.options.length - 1
+        this.indexOfFocusedOption = this.filteredOptions.length - 1
       }
       this.scrollFocusedOptionIntoView()
     }
 
     if (key === 'Enter') {
-      this.control.setValue(this.options[this.indexOfFocusedOption].label)
+      this.control.setValue(this.filteredOptions[this.indexOfFocusedOption].label)
       this.inputRef.nativeElement.blur()
     }
 
