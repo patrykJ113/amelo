@@ -1,0 +1,20 @@
+<div class="grid grid-cols-12 gap-2">
+  <app-input
+    label="Title"
+    class="col-span-full md:col-span-6"
+    [control]="getListingFormControl('title')"
+  />
+
+  <combobox
+    label="Category"
+    class="col-span-full md:col-span-6"
+    [control]="getListingFormControl('category')"
+    [options]="carCategories"
+  />
+
+  <app-textarea
+    label="Description"
+    class="col-span-full"
+    [control]="getListingFormControl('description')"
+  />
+</div>
