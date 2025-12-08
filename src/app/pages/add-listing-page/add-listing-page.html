@@ -1,1 +1,21 @@
-<p>add-listing-page works!</p>
+<div class="m-auto mt-10 rounded-lg bg-white border border-gray-300 md:w-[60%]">
+  <div class="px-4 py-4 bg-blue-500 text-white flex gap-2 items-center rounded-t-lg">
+    <svg-icon
+      src="plus-circle.svg"
+      class="inline-flex size-8 text-white"
+    />
+    <div class="text-xl">Add Listing</div>
+  </div>
+
+  <div class="p-5">
+    <vertical-spacing gap="6">
+      <listing-form/>
+
+      <horizontal-spacing justify="end">
+        <app-button
+          label="Create Listing"
+        />
+      </horizontal-spacing>
+    </vertical-spacing>
+  </div>
+</div>
