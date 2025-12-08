@@ -1,71 +1,73 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppInput} from "@components/app/app-input/app-input";
 import {AppTextarea} from "@components/app-textarea/app-textarea";
 import {Combobox} from "@components/combobox/combobox";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DropdownOption} from '@typings/dropdown-option';
 import {optionExistsValidator} from '@validators/option-exists';
+import {CategoryService} from '@services/category.service';
+import {Loading} from '@components/loading/loading';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'listing-form',
-    imports: [
-        AppInput,
-        AppTextarea,
-        Combobox
-    ],
+  imports: [
+    AppInput,
+    AppTextarea,
+    Combobox,
+    Loading,
+  ],
   templateUrl: './listing-form.html',
   styleUrl: './listing-form.css'
 })
-export class ListingForm {
-  listingForm: FormGroup | undefined = undefined
-  carCategories: DropdownOption[] = [
-    {
-      id: '1',
-      label: 'Audi'
-    },
-    {
-      id: '2',
-      label: 'Bmw'
-    },
-    {
-      id: '3',
-      label: 'Mercedes'
-    },
-    {
-      id: '4',
-      label: 'Volskwagen'
-    },
-    {
-      id: '5',
-      label: 'Opel'
-    },
-    {
-      id: '6',
-      label: 'Seat'
-    },
-    {
-      id: '8',
-      label: 'Ford'
-    },
-    {
-      id: '9',
-      label: 'Chevrolet'
-    },
-    {
-      id: '10',
-      label: 'Ferari'
-    },
-  ]
+export class ListingForm implements OnInit {
+  form: FormGroup | undefined = undefined
+  carCategories: DropdownOption[] = []
+  loading: boolean = true
 
-  constructor(private fb: FormBuilder) {
-    this.listingForm = this.fb.group({
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService
+  ) {
+    this.form = this.fb.group({
       title: ['', Validators.required],
-      category: ['',  [optionExistsValidator(this.carCategories), Validators.required]],
+      category: ['', [optionExistsValidator(this.carCategories), Validators.required]],
+      price: ['', [Validators.required, Validators.min(0)]],
       description: ['', Validators.required]
     })
   }
 
+  ngOnInit() {
+    this.getCategories()
+  }
+
+  getCategories() {
+    this.categoryService.getAll().subscribe({
+      next: categoryies => {
+        categoryies.forEach(categorie => {
+          this.carCategories.push({
+            id: categorie.id,
+            label: this.capitalize(categorie.name)
+          })
+        })
+        this.hideLoader()
+      },
+      error: err => {
+        this.hideLoader()
+        console.error(err)
+      }
+    })
+  }
+
+  hideLoader() {
+    this.loading = false
+  }
+
+  capitalize(str: string) {
+    return str[0].toUpperCase() + str.slice(1).toLowerCase()
+  }
+
   getListingFormControl(controlName: string): FormControl {
-    return this.listingForm?.get(controlName) as FormControl
+    return this.form?.get(controlName) as FormControl
   }
 }

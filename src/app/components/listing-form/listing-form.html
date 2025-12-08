@@ -1,15 +1,26 @@
 <div class="grid grid-cols-12 gap-2">
+  @if (loading) {
+    <loading/>
+  }
+
+  <combobox
+    label="Category"
+    class="col-span-full"
+    [control]="getListingFormControl('category')"
+    [options]="carCategories"
+  />
+
   <app-input
     label="Title"
     class="col-span-full md:col-span-6"
     [control]="getListingFormControl('title')"
   />
 
-  <combobox
-    label="Category"
+  <app-input
+    label="Price"
     class="col-span-full md:col-span-6"
-    [control]="getListingFormControl('category')"
-    [options]="carCategories"
+    type="number"
+    [control]="getListingFormControl('price')"
   />
 
   <app-textarea
@@ -18,3 +29,4 @@
     [control]="getListingFormControl('description')"
   />
 </div>
+
