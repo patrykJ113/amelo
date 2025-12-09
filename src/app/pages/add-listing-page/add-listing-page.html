@@ -7,12 +7,17 @@
     <div class="text-xl">Add Listing</div>
   </div>
 
-  <div class="p-5">
+  <div class="p-5 relative">
+    @if (loading) {
+      <loading/>
+    }
+
     <vertical-spacing gap="6">
       <listing-form/>
 
       <horizontal-spacing justify="end">
         <app-button
+          (click)="createListing()"
           label="Create Listing"
         />
       </horizontal-spacing>

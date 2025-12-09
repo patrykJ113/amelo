@@ -7,7 +7,6 @@ import {DropdownOption} from '@typings/dropdown-option';
 import {optionExistsValidator} from '@validators/option-exists';
 import {CategoryService} from '@services/category.service';
 import {Loading} from '@components/loading/loading';
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'listing-form',
@@ -32,6 +31,7 @@ export class ListingForm implements OnInit {
     this.form = this.fb.group({
       title: ['', Validators.required],
       category: ['', [optionExistsValidator(this.carCategories), Validators.required]],
+      category_object: [''],
       price: ['', [Validators.required, Validators.min(0)]],
       description: ['', Validators.required]
     })
@@ -67,7 +67,7 @@ export class ListingForm implements OnInit {
     return str[0].toUpperCase() + str.slice(1).toLowerCase()
   }
 
-  getListingFormControl(controlName: string): FormControl {
+  getControl(controlName: string): FormControl {
     return this.form?.get(controlName) as FormControl
   }
 }

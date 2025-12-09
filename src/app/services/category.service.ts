@@ -7,7 +7,6 @@ import {Category, CategoryRequestBody} from '@typings/category';
   providedIn: 'root'
 })
 export class CategoryService {
-  private baseApiUrl = 'http://localhost:8080/api'
   private categoryUrl = 'http://localhost:8080/api/category'
 
   constructor(private http: HttpClient) {

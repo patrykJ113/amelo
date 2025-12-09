@@ -28,6 +28,7 @@ export class Combobox implements OnInit {
   @Input() label: string = ''
   @Input() disabled: boolean = false
   @Input() control!: FormControl
+  @Input() categoryObjControl!: FormControl
   @ViewChild('input') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChildren('optionElement') optionRef!: QueryList<ElementRef<HTMLDivElement>>;
   filteredOptions: DropdownOption[] = []
@@ -60,7 +61,10 @@ export class Combobox implements OnInit {
     const value = this.control.getRawValue().toLowerCase()
     if (!value) return
     const firstMatchedOption = this.filteredOptions.find(option => option.label.toLowerCase().startsWith(value))
-    if(firstMatchedOption) this.control.setValue(firstMatchedOption.label)
+    if(firstMatchedOption) {
+      this.categoryObjControl.setValue(firstMatchedOption)
+      this.control.setValue(firstMatchedOption.label)
+    }
   }
 
   handleMouseDownOnOption(option: DropdownOption) {

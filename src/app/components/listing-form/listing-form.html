@@ -6,27 +6,28 @@
   <combobox
     label="Category"
     class="col-span-full"
-    [control]="getListingFormControl('category')"
+    [control]="getControl('category')"
+    [categoryObjControl]="getControl('category_object')"
     [options]="carCategories"
   />
 
   <app-input
     label="Title"
     class="col-span-full md:col-span-6"
-    [control]="getListingFormControl('title')"
+    [control]="getControl('title')"
   />
 
   <app-input
     label="Price"
     class="col-span-full md:col-span-6"
     type="number"
-    [control]="getListingFormControl('price')"
+    [control]="getControl('price')"
   />
 
   <app-textarea
     label="Description"
     class="col-span-full"
-    [control]="getListingFormControl('description')"
+    [control]="getControl('description')"
   />
 </div>
 
