@@ -1,0 +1,19 @@
+
+<div class="border border-gray-300 p-3 bg-white rounded-lg cursor-pointer">
+  <vertical-spacing gap="4">
+    <div class="bg-gray-100 h-[250px] rounded-md flex justify-center items-center">
+      <svg-icon
+        src="no-image.svg"
+        class="size-20 inline-flex text-gray-400"
+      />
+    </div>
+
+    <div>
+      <div class="text-lg font-medium">{{ listing.title }}</div>
+      <div class="text-gray-400">
+        {{ listing.price | currency:'USD':'symbol':'1.0-0'}}
+      </div>
+    </div>
+  </vertical-spacing>
+</div>
+
