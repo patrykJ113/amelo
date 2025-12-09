@@ -1,25 +1,16 @@
-<nav class="py-5 px-10 bg-white border-b border-b-gray-300">
-  <horizontal-spacing
-    gap="10"
-    justify="between"
-    items="center"
-  >
-    <logo/>
+<nav class="py-5 px-10 bg-white border-b border-b-gray-300 grid grid-cols-12">
+  <logo
+    class="col-span-4"
+  />
 
-    <horizontal-spacing
-      gap="1"
-      items="center"
-    >
-      <nav-go-to-page-button
-        label="Add Listing"
-        pageUrl="listing/add"
-      />
-      <nav-go-to-page-button
-        label="Listings"
-        pageUrl="listings"
-      />
-    </horizontal-spacing>
-
-    <div></div>
-  </horizontal-spacing>
+  <div class="col-span-4 flex gap-2 justify-center">
+    <nav-go-to-page-button
+      label="Add Listing"
+      pageUrl="listing/add"
+    />
+    <nav-go-to-page-button
+      label="Listings"
+      pageUrl="listings"
+    />
+  </div>
 </nav>
