@@ -20,8 +20,18 @@ export class ListingService {
     return this.http.get<Listing>(`${this.categoryUrl}/${id}`)
   }
 
-  create(listing: ListingRequestBody): Observable<Listing> {
-    return this.http.post<Listing>(this.categoryUrl, listing)
+  getImage(id: string): Observable<Blob> {
+    return this.http.get(`${this.categoryUrl}/${id}/image`, { responseType: 'blob' })
+  }
+
+  create(listing: ListingRequestBody, file: File): Observable<Listing> {
+    const formData = new FormData()
+
+    const listingJson = new Blob([JSON.stringify(listing)], { type: 'application/json' })
+    formData.append('listing', listingJson)
+
+    formData.append('image', file)
+    return this.http.post<Listing>(this.categoryUrl, formData)
   }
 
   update(id: string, listing: ListingRequestBody): Observable<Listing> {

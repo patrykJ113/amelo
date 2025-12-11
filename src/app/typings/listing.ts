@@ -6,7 +6,8 @@ export interface Listing {
   description: string
   price: number
   category_id: string
-  category_name: CategoryType
+  category_name: CategoryType,
+  picture_file_name: string
 }
 
 export type ListingRequestBody = Pick<Listing, 'title' | 'description' | 'price' | 'category_id'>

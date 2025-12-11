@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Listing} from '@typings/listing';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {CurrencyPipe} from '@angular/common';
+import {ListingService} from '@services/listing.service';
 
 @Component({
   selector: 'listing-card',
@@ -14,6 +15,24 @@ import {CurrencyPipe} from '@angular/common';
   templateUrl: './listing-card.html',
   styleUrl: './listing-card.css'
 })
-export class ListingCard {
+export class ListingCard implements OnInit {
+  url: string = ''
   @Input() listing!: Listing
+
+  constructor(private listingService: ListingService) {
+  }
+
+  ngOnInit() {
+    if (this.listing.picture_file_name) {
+      this.listingService.getImage(this.listing.id).subscribe({
+        next: blob => {
+          this.url = URL.createObjectURL(blob)
+        },
+        error: err => {
+          console.error(err)
+        }
+      })
+    }
+  }
+
 }

@@ -32,7 +32,7 @@ export class AddListingPage {
     if (!this.listingForm.form) return
 
     this.showLoader()
-    const {title, description, price, category_object} = this.listingForm.form.value
+    const {title, description, price, category_object, file} = this.listingForm.form.value
 
     const newListing: ListingRequestBody = {
       title,
@@ -41,7 +41,7 @@ export class AddListingPage {
       category_id: category_object.id
     }
 
-    this.listingService.create(newListing).subscribe({
+    this.listingService.create(newListing, file).subscribe({
       next: category => {
         this.hideLoader()
         console.log(category)

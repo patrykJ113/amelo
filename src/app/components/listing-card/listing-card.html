@@ -2,10 +2,18 @@
 <div class="border border-gray-300 p-3 bg-white rounded-lg cursor-pointer">
   <vertical-spacing gap="4">
     <div class="bg-gray-100 h-[250px] rounded-md flex justify-center items-center">
-      <svg-icon
-        src="no-image.svg"
-        class="size-20 inline-flex text-gray-400"
-      />
+      @if (url !== '') {
+        <img
+          [src]="url"
+          class="w-full h-full object-cover rounded-md"
+          alt="image"
+        >
+      } @else {
+        <svg-icon
+          src="no-image.svg"
+          class="size-20 inline-flex text-gray-400"
+        />
+      }
     </div>
 
     <div>
