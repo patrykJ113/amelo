@@ -4,6 +4,7 @@ import {DropdownOption} from '@typings/dropdown-option';
 export function optionExistsValidator(dropDownOptions: DropdownOption[]){
   return (control: AbstractControl): null | object  => {
     const value = control.value
+    if(!value) return null
     const inputMatchesAllowedOption = dropDownOptions.some(
       option => option.label.toLowerCase() === value.toLowerCase()
     )

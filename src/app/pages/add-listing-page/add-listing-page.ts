@@ -16,7 +16,7 @@ import {Loading} from '@components/loading/loading';
     SvgIconComponent,
     VerticalSpacing,
     HorizontalSpacing,
-    Loading
+    Loading,
   ],
   templateUrl: './add-listing-page.html',
   styleUrl: './add-listing-page.css'
@@ -43,7 +43,10 @@ export class AddListingPage {
 
     this.listingService.create(newListing, file).subscribe({
       next: category => {
-        this.hideLoader()
+        setInterval(() => {
+          this.hideLoader()
+          this.listingForm.form?.reset()
+        }, 1000)
         console.log(category)
       },
       error: err => {
