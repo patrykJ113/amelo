@@ -17,6 +17,7 @@
 
       <horizontal-spacing justify="end">
         <app-button
+          [disabled]="isFormInValid"
           (click)="createListing()"
           label="Create Listing"
         />

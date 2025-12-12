@@ -57,6 +57,11 @@ export class AddListingPage {
     this.loading = true
   }
 
+  get isFormInValid() {
+    if (!this.listingForm?.form) return true
+    return this.listingForm.form.invalid
+  }
+
   hideLoader() {
     this.loading = false
   }
