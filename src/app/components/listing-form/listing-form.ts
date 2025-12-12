@@ -30,11 +30,11 @@ export class ListingForm implements OnInit {
     private categoryService: CategoryService
   ) {
     this.form = this.fb.group({
-      title: ['', Validators.required],
+      title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
       category: ['', [optionExistsValidator(this.carCategories), Validators.required]],
       category_object: [''],
-      price: ['', [Validators.required, Validators.min(0)]],
-      description: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(0), Validators.max(10000000)]],
+      description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(2000)]],
       file: [null]
     })
   }
