@@ -1,27 +1,17 @@
-<div class="rounded-lg bg-white border border-gray-300">
-  <div class="px-4 py-4 bg-blue-500 text-white flex gap-2 items-center rounded-t-lg">
-    <svg-icon
-      src="plus-circle.svg"
-      class="inline-flex size-8 text-white"
-    />
-    <div class="text-xl">Add Listing</div>
-  </div>
+<div class="p-5 relative">
+  @if (loading) {
+    <loading/>
+  }
 
-  <div class="p-5 relative">
-    @if (loading) {
-      <loading/>
-    }
+  <vertical-spacing gap="6">
+    <listing-form/>
 
-    <vertical-spacing gap="6">
-      <listing-form/>
-
-      <horizontal-spacing justify="end">
-        <app-button
-          [disabled]="isFormInValid"
-          (click)="createListing()"
-          label="Create Listing"
-        />
-      </horizontal-spacing>
-    </vertical-spacing>
-  </div>
+    <horizontal-spacing justify="end">
+      <app-button
+        [disabled]="isFormInValid"
+        (click)="createListing()"
+        label="Create Listing"
+      />
+    </horizontal-spacing>
+  </vertical-spacing>
 </div>

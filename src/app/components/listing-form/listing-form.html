@@ -1,39 +1,72 @@
-<div class="grid grid-cols-12 gap-3">
-  @if (loading) {
-    <loading/>
-  }
+<vertical-spacing gap="5">
+  <panel>
+    <h2 class="text-lg font-medium mb-5 text-blue-950">
+      Pick a Title and Category!
+      <span class="text-red-500"> *</span>
+    </h2>
 
-  <combobox
-    label="Category"
-    class="col-span-full"
-    [control]="getControl('category')"
-    [categoryObjControl]="getControl('category_object')"
-    [options]="carCategories"
-  />
+    <div class="grid grid-cols-12 gap-3 ">
+      <app-input
+        label="Title"
+        class="col-span-full md:col-span-6"
+        [control]="getControl('title')"
+      />
 
-  <app-input
-    label="Title"
-    class="col-span-full md:col-span-6"
-    [control]="getControl('title')"
-  />
+      <combobox
+        label="Category"
+        class="col-span-full md:col-span-6 row-start-2"
+        [control]="getControl('category')"
+        [categoryObjControl]="getControl('category_object')"
+        [options]="carCategories"
+      />
+    </div>
+  </panel>
 
-  <app-input
-    label="Price"
-    class="col-span-full md:col-span-6"
-    type="number"
-    [control]="getControl('price')"
-  />
+  <panel>
+    <h2 class="text-lg font-medium mb-5 text-blue-950">
+      Set a Price
+      <span class="text-red-500">*</span>
+    </h2>
+    <div class="grid grid-cols-12 gap-3">
+      <app-input
+        label="Price"
+        class="col-span-full md:col-span-6"
+        type="number"
+        [control]="getControl('price')"
+      />
+    </div>
+  </panel>
 
-  <app-textarea
-    label="Description"
-    class="col-span-full"
-    [control]="getControl('description')"
-  />
-</div>
+  <panel>
+    <div class="mb-5">
+      <h2 class="text-lg font-medium mb-2 text-blue-950">Add Photos</h2>
+      <p class="text-sm text-gray-400">The first photo will be the main photo. Drag photos to other locations to change
+        their order.</p>
+    </div>
 
-<input
-  (change)="onFileChange($event)"
-  accept="image/*"
-  type="file"
->
+    <image-picker
+      [control]="getControl('files')"
+    />
 
+  </panel>
+
+  <panel>
+    <h2 class="text-lg font-medium mb-5 text-blue-950">
+      Provide a description
+      <span class="text-red-500">*</span>
+    </h2>
+    <div class="grid grid-cols-12 gap-3">
+      <app-textarea
+        label="Description"
+        class="col-span-full md:col-span-6"
+        [control]="getControl('description')"
+      />
+    </div>
+  </panel>
+
+  <div class="grid grid-cols-12 gap-3">
+    @if (loading) {
+      <loading/>
+    }
+  </div>
+</vertical-spacing>

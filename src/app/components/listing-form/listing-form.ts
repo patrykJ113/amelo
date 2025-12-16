@@ -7,6 +7,9 @@ import {DropdownOption} from '@typings/dropdown-option';
 import {optionExistsValidator} from '@validators/option-exists';
 import {CategoryService} from '@services/category.service';
 import {Loading} from '@components/loading/loading';
+import {Panel} from '@components/panel/panel';
+import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
+import {ImagePicker} from '@components/image-picker/image-picker';
 
 @Component({
   selector: 'listing-form',
@@ -16,6 +19,9 @@ import {Loading} from '@components/loading/loading';
     Combobox,
     Loading,
     ReactiveFormsModule,
+    Panel,
+    VerticalSpacing,
+    ImagePicker,
   ],
   templateUrl: './listing-form.html',
   styleUrl: './listing-form.css'
@@ -35,7 +41,7 @@ export class ListingForm implements OnInit {
       category_object: [''],
       price: ['', [Validators.required, Validators.min(0), Validators.max(10000000)]],
       description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(2000)]],
-      file: [null]
+      files: [null]
     })
   }
 
@@ -59,13 +65,6 @@ export class ListingForm implements OnInit {
         console.error(err)
       }
     })
-  }
-
-  onFileChange(e: Event) {
-    const input = e.target as HTMLInputElement
-    if(!input.files?.length) return
-
-    this.getControl('file').setValue(input.files[0])
   }
 
   hideLoader() {

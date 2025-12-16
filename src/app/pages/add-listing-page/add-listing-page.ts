@@ -1,7 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {AppButton} from '@components/app/app-button/app-button';
 import {ListingForm} from '@components/listing-form/listing-form';
-import {SvgIconComponent} from 'angular-svg-icon';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/horizontal-spacing';
 import {ListingRequestBody} from '@typings/listing';
@@ -13,7 +12,6 @@ import {Loading} from '@components/loading/loading';
   imports: [
     AppButton,
     ListingForm,
-    SvgIconComponent,
     VerticalSpacing,
     HorizontalSpacing,
     Loading,
@@ -43,7 +41,7 @@ export class AddListingPage {
 
     this.listingService.create(newListing, file).subscribe({
       next: category => {
-        setInterval(() => {
+        setTimeout(() => {
           this.hideLoader()
           this.listingForm.form?.reset()
         }, 1000)
