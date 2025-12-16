@@ -1,9 +1,9 @@
 import {
-  Component,
+  Component, DoCheck, ElementRef,
   EventEmitter,
   Input,
   OnInit,
-  Output,
+  Output, ViewChild,
 } from '@angular/core';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {NgClass} from '@angular/common';
@@ -18,10 +18,11 @@ import {FormControl} from '@angular/forms';
   templateUrl: './image-slot.html',
   styleUrl: './image-slot.css'
 })
-export class ImageSlot implements OnInit {
+export class ImageSlot implements OnInit, DoCheck {
   @Input() index!: number
   @Input() control!: FormControl
   @Output() openFIlePicker: EventEmitter<void> = new EventEmitter
+  @ViewChild('image_slot') imageSlot!: ElementRef<HTMLDivElement>;
   blobUrl: string = ''
 
   ngOnInit() {
@@ -32,6 +33,10 @@ export class ImageSlot implements OnInit {
         this.blobUrl = URL.createObjectURL(this.control.value[this.index])
       }
     })
+  }
+
+  ngDoCheck() {
+    this.imageSlot?.nativeElement.blur()
   }
 
   get isFirstWithoutImag() {
