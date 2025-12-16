@@ -1,0 +1,46 @@
+<div
+  class="relative group w-full h-full rounded-lg"
+  [ngClass]="[isFirstWithoutImag ?
+             'border-blue-100/90 hover:border-blue-200/90 bg-blue-100/60 hover:bg-blue-100/90 text-blue-400 hover:text-blue-950' :
+             'border-gray-100 hover:border-gray-200 bg-gray-100',
+             blobUrl ?
+             'relative' :
+             'flex items-center justify-center cursor-pointer border-2 transition-all duration-150'
+             ]"
+>
+  @if (blobUrl) {
+    <img
+      [src]="blobUrl"
+      alt="picture"
+      class="w-full h-full object-cover rounded-lg"
+    >
+    <div class="absolute inset-0 rounded-lg bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150
+                  cursor-pointer flex justify-center items-center">
+      <div
+        class="p-2 bg-white rounded-full flex justify-center items-center hover:scale-125 transition-all duration-150"
+        (click)="$event.stopPropagation(); removeImage()"
+      >
+        <svg-icon
+          src="bin.svg"
+          class="inline-flex size-6"
+        />
+      </div>
+    </div>
+  } @else {
+    @if (isFirstWithoutImag) {
+      <div
+        class="relative font-medium translate-y-0 transition-transform duration-150 before:absolute before:left-0 before:-bottom-1
+                 before:h-[2px] before:w-0 before:bg-blue-950 before:block before:transition-all before:duration-150
+                 group-hover:-translate-y-0.5 group-hover:before:w-full"
+      >
+        + Add Picture
+      </div>
+    } @else {
+      <svg-icon
+        src="camera.svg"
+        class="inline-flex size-6 text-gray-400 group-hover:text-gray-600 group-hover:scale-125 transition-all duration-150"
+      />
+    }
+  }
+</div>
+
