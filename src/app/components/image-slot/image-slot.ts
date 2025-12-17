@@ -44,6 +44,10 @@ export class ImageSlot implements OnInit, DoCheck {
     return this.control.value[this.index] === undefined && this.control.value[this.index - 1]
   }
 
+  get isFirstWithImage() {
+    return this.index === 0 && this.blobUrl
+  }
+
   removeImage() {
     const tmpArr = [...this.control.value];
     tmpArr.splice(this.index, 1);

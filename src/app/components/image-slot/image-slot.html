@@ -30,6 +30,11 @@
         />
       </div>
     </div>
+    @if (isFirstWithImage) {
+      <div class="absolute bottom-0 left-0 py-2 px-4 bg-blue-500/90 text-white rounded-tr-lg rounded-bl-lg">
+        Main
+      </div>
+    }
   } @else {
     @if (isFirstWithoutImag) {
       <div
