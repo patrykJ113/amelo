@@ -1,5 +1,5 @@
 import {
-  Component, DoCheck, ElementRef,
+  Component, ElementRef,
   EventEmitter,
   Input,
   OnInit,
@@ -18,7 +18,7 @@ import {FormControl} from '@angular/forms';
   templateUrl: './image-slot.html',
   styleUrl: './image-slot.css'
 })
-export class ImageSlot implements OnInit, DoCheck {
+export class ImageSlot implements OnInit {
   @Input() index!: number
   @Input() control!: FormControl
   @Output() openFIlePicker: EventEmitter<void> = new EventEmitter
@@ -31,12 +31,9 @@ export class ImageSlot implements OnInit, DoCheck {
         this.blobUrl = ''
       } else {
         this.blobUrl = URL.createObjectURL(this.control.value[this.index])
+        this.imageSlot?.nativeElement.blur()
       }
     })
-  }
-
-  ngDoCheck() {
-    this.imageSlot?.nativeElement.blur()
   }
 
   get isFirstWithoutImag() {
@@ -54,6 +51,7 @@ export class ImageSlot implements OnInit, DoCheck {
 
     let controlValue = tmpArr.length ? tmpArr : null
     this.control.setValue(controlValue);
+    this.imageSlot?.nativeElement.blur()
   }
 
   onKayDown({key}: KeyboardEvent) {
