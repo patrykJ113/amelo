@@ -24,13 +24,15 @@ export class ListingService {
     return this.http.get(`${this.categoryUrl}/${id}/image`, { responseType: 'blob' })
   }
 
-  create(listing: ListingRequestBody, file: File): Observable<Listing> {
+  create(listing: ListingRequestBody, files: File[]): Observable<Listing> {
     const formData = new FormData()
 
     const listingJson = new Blob([JSON.stringify(listing)], { type: 'application/json' })
     formData.append('listing', listingJson)
+    if(files) {
+      files.forEach(file => formData.append('files', file))
+    }
 
-    formData.append('image', file)
     return this.http.post<Listing>(this.categoryUrl, formData)
   }
 
