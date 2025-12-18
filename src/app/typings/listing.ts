@@ -1,4 +1,5 @@
 import {CategoryType} from '@typings/category';
+import {Picture} from '@typings/picture';
 
 export interface Listing {
   id: string
@@ -8,6 +9,7 @@ export interface Listing {
   category_id: string
   category_name: CategoryType,
   picture_file_name: string
+  pictures: Picture[]
 }
 
 export type ListingRequestBody = Pick<Listing, 'title' | 'description' | 'price' | 'category_id'>
