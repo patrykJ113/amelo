@@ -1,6 +1,7 @@
 <div class="grid grid-cols-12 gap-4">
   @for (listing of listings; track listing.id) {
     <listing-card
+      [routerLink]="['/listing', listing.id]"
       [listing]="listing"
       class="col-span-full md:col-span-6 lg:col-span-4"
     />
