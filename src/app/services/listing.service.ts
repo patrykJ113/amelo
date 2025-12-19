@@ -20,8 +20,8 @@ export class ListingService {
     return this.http.get<Listing>(`${this.categoryUrl}/${id}`)
   }
 
-  getImage(id: string): Observable<Blob> {
-    return this.http.get(`${this.categoryUrl}/${id}/image`, { responseType: 'blob' })
+  getImage(id: string, pictureName: string): Observable<Blob> {
+    return this.http.get(`${this.categoryUrl}/${id}/picture/${pictureName}`, { responseType: 'blob' })
   }
 
   create(listing: ListingRequestBody, files: File[]): Observable<Listing> {

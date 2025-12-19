@@ -24,7 +24,7 @@ export class ListingCard implements OnInit {
 
   ngOnInit() {
     if (this.listing.picture) {
-      this.listingService.getImage(this.listing.id).subscribe({
+      this.listingService.getImage(this.listing.id, this.listing.picture.file_name).subscribe({
         next: blob => {
           this.url = URL.createObjectURL(blob)
         },
