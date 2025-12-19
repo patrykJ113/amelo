@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Listing} from '@typings/listing';
+import {Listing, ListingListItem} from '@typings/listing';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {CurrencyPipe} from '@angular/common';
@@ -17,13 +17,13 @@ import {ListingService} from '@services/listing.service';
 })
 export class ListingCard implements OnInit {
   url: string = ''
-  @Input() listing!: Listing
+  @Input() listing!: ListingListItem
 
   constructor(private listingService: ListingService) {
   }
 
   ngOnInit() {
-    if (this.listing.picture_file_name) {
+    if (this.listing.picture) {
       this.listingService.getImage(this.listing.id).subscribe({
         next: blob => {
           this.url = URL.createObjectURL(blob)

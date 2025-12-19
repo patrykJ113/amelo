@@ -12,4 +12,8 @@ export interface Listing {
   pictures: Picture[]
 }
 
+export type ListingListItem = Pick<Listing, 'id' | 'title' | 'price'> & { picture: null | Picture }
+
+export type GetAllListingsResponse = ListingListItem[]
+
 export type ListingRequestBody = Pick<Listing, 'title' | 'description' | 'price' | 'category_id'>

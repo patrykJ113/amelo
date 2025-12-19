@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ListingCard} from '@components/listing-card/listing-card';
 import {ListingService} from '@services/listing.service';
-import {Listing} from '@typings/listing';
+import {GetAllListingsResponse} from '@typings/listing';
 
 @Component({
   selector: 'listings-page',
@@ -12,7 +12,7 @@ import {Listing} from '@typings/listing';
   styleUrl: './listings-page.css'
 })
 export class ListingsPage implements OnInit {
-  listings: Listing[] = []
+  listings: GetAllListingsResponse = []
   constructor(private listingService: ListingService) {
   }
 
@@ -24,7 +24,6 @@ export class ListingsPage implements OnInit {
     this.listingService.getAll().subscribe({
       next: listings => {
         this.listings = listings
-        console.log(listings)
       },
       error: err => {
         console.log(err)

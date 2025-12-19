@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Listing, ListingRequestBody} from '@typings/listing';
+import {GetAllListingsResponse, Listing, ListingRequestBody} from '@typings/listing';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class ListingService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(): Observable<Listing[]> {
-    return this.http.get<Listing[]>(this.categoryUrl)
+  getAll(): Observable<GetAllListingsResponse> {
+    return this.http.get<GetAllListingsResponse>(this.categoryUrl)
   }
 
   getById(id: string): Observable<Listing> {
