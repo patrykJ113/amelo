@@ -45,7 +45,6 @@ export class AddListingPage {
           this.hideLoader()
           this.listingForm.form?.reset()
         }, 1000)
-        console.log(category)
       },
       error: err => {
         console.error(err)
