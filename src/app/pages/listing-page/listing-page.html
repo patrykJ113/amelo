@@ -1,25 +1,26 @@
+@if (loading) {
+  <loading/>
+}
+
 @if (listing) {
-  <vertical-spacing gap="5">
-    <h1>{{ listing.title }}</h1>
+  <div class="grid grid-cols-12 gap-5">
+    <image-slider
+      class="col-span-8"
+      [imageUrls]="imageUrls"
+    />
 
-    <h1>{{ listing.price }}</h1>
+    <listing-info-section
+      class="col-span-4"
+      [listing]="listing"
+    />
 
-    <h1>{{ listing.category_name }}</h1>
+    <listing-description-section
+      class="col-span-8"
+      [listing]="listing"
+    />
+  </div>
+}
 
-    @if (pictureUrls.length) {
-      <div class="flex gap-4">
-        @for (pictureUrl of pictureUrls; track pictureUrl) {
-          <img
-            class="size-52"
-            [src]="pictureUrl"
-            alt="img"
-          >
-        }
-      </div>
-    }
-
-    <panel>
-      <p>{{ listing.description }}</p>
-    </panel>
-  </vertical-spacing>
+@if (error) {
+  <h1 class="text-5xl text-red-500">Listing dos not exist</h1>
 }

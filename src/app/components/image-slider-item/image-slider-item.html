@@ -1,0 +1,12 @@
+<div class="bg-gray-100 rounded-lg flex justify-center items-center">
+  <img
+    class="rounded-lg object-contain size-[600px] px-16"
+    [src]="src"
+    (load)="onLoad()"
+    alt="img"
+  >
+  <div
+    class="absolute inset-0 bg-gray-500 size-80 shrink-0 rounded-lg"
+    [ngClass]="imageIsLoaded ? 'hidden' : 'block'"
+  ></div>
+</div>
