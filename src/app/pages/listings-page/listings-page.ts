@@ -44,8 +44,6 @@ export class ListingsPage implements OnInit {
   }
 
   hideLoader() {
-    setTimeout(() => {
-      this.loading = false
-    }, 3000)
+    this.loading = false
   }
 }
