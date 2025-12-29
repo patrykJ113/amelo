@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Listing, ListingListItem} from '@typings/listing';
+import {ListingListItem} from '@typings/listing';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {CurrencyPipe} from '@angular/common';
 import {ListingService} from '@services/listing.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'listing-card',
@@ -19,7 +20,17 @@ export class ListingCard implements OnInit {
   url: string = ''
   @Input() listing!: ListingListItem
 
-  constructor(private listingService: ListingService) {
+  constructor(
+    private listingService: ListingService,
+    private router: Router
+  ) {
+  }
+
+  handleKeyDown({ key }: KeyboardEvent) {
+    const isEnter = key === 'Enter'
+    if (isEnter) {
+      this.router.navigate(['listing', this.listing.id])
+    }
   }
 
   ngOnInit() {
