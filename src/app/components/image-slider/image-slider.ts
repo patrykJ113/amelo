@@ -2,7 +2,6 @@ import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {Panel} from '@components/panel/panel';
 import {ImageSliderItem} from '@components/image-slider-item/image-slider-item';
 import {ImageSliderButton} from '@components/image-slider-button/image-slider-button';
-import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/horizontal-spacing';
 
 @Component({
   selector: 'image-slider',
@@ -10,7 +9,6 @@ import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/hori
     Panel,
     ImageSliderItem,
     ImageSliderButton,
-    HorizontalSpacing
   ],
   templateUrl: './image-slider.html',
   styleUrl: './image-slider.css'
