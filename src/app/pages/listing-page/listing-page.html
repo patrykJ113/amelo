@@ -5,17 +5,17 @@
 @if (listing) {
   <div class="grid grid-cols-12 gap-5">
     <image-slider
-      class="col-span-8"
+      class="col-span-full md:col-span-8"
       [imageUrls]="imageUrls"
     />
 
     <listing-info-section
-      class="col-span-4"
+      class="col-span-full md:col-span-4"
       [listing]="listing"
     />
 
     <listing-description-section
-      class="col-span-8"
+      class="col-span-full md:col-span-8"
       [listing]="listing"
     />
   </div>
