@@ -4,13 +4,17 @@ import {ListingService} from '@services/listing.service';
 import {GetAllListingsResponse} from '@typings/listing';
 import {RouterLink} from '@angular/router';
 import {Loading} from '@components/loading/loading';
+import {SvgIconComponent} from 'angular-svg-icon';
+import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 
 @Component({
   selector: 'listings-page',
   imports: [
     ListingCard,
     RouterLink,
-    Loading
+    Loading,
+    SvgIconComponent,
+    VerticalSpacing
   ],
   templateUrl: './listings-page.html',
   styleUrl: './listings-page.css'
