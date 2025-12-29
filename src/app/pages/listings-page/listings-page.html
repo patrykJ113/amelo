@@ -1,4 +1,9 @@
 <div class="grid grid-cols-12 gap-4">
+
+  @if (loading) {
+    <loading/>
+  }
+
   @for (listing of listings; track listing.id) {
     <listing-card
       [routerLink]="['/listing', listing.id]"
