@@ -6,6 +6,7 @@ import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/hori
 import {ListingRequestBody} from '@typings/listing';
 import {ListingService} from '@services/listing.service';
 import {Loading} from '@components/loading/loading';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'add-listing-page',
@@ -23,7 +24,10 @@ export class AddListingPage {
   loading: boolean = false
   @ViewChild(ListingForm) listingForm!: ListingForm
 
-  constructor(private listingService: ListingService) {
+  constructor(
+    private listingService: ListingService,
+    private router: Router
+  ) {
   }
 
   createListing() {
@@ -40,10 +44,11 @@ export class AddListingPage {
     }
 
     this.listingService.create(newListing, files).subscribe({
-      next: category => {
+      next: listing => {
         setTimeout(() => {
-          this.hideLoader()
           this.listingForm.form?.reset()
+          this.router.navigate(['listing', listing.id])
+          this.hideLoader()
         }, 1000)
       },
       error: err => {
