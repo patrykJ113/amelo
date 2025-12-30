@@ -6,14 +6,14 @@
           focus:shadow-xl focus:shadow-gray-300/30 focus:border-gray-400/60 focus:outline-none"
 >
   <vertical-spacing gap="4">
-    <div class="bg-gray-100 md:h-[250px] rounded-md flex justify-center items-center relative">
+    <div class="bg-gray-100 md:h-[250px] rounded-md flex justify-center items-center relative aspect-square md:aspect-auto">
       @if (listingHasPicture) {
         @if (blobUrl) {
           <div class="overflow-hidden rounded-md w-full h-full">
             <img
               [src]="blobUrl"
               (load)="onLoad()"
-              class="object-cover rounded-md  transition-transform duration-300 group-hover:scale-105 group-focus:scale-105"
+              class="object-cover h-full w-full rounded-md  transition-transform duration-300 group-hover:scale-105 group-focus:scale-105"
               alt="image"
             >
           </div>
