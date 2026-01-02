@@ -15,7 +15,7 @@ import {ListingDescriptionSection} from '@components/listing-description-section
     Loading,
     ImageSlider,
     ListingInfoSection,
-    ListingDescriptionSection
+    ListingDescriptionSection,
   ],
   templateUrl: './listing-page.html',
   styleUrl: './listing-page.css'
