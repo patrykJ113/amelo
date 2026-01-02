@@ -43,7 +43,6 @@ export class ListingPage implements OnInit {
     this.listingService.getById(listingId).subscribe({
       next: listing => {
         this.listing = listing
-        this.hideLoader()
         this.loadListingPictures(this.listing.pictures)
       },
       error: err => {
@@ -59,6 +58,7 @@ export class ListingPage implements OnInit {
 
     forkJoin(requests).subscribe(blobs => {
       this.imageUrls = blobs.map(blob => URL.createObjectURL(blob))
+      this.hideLoader()
     })
   }
 
