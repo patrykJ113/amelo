@@ -2,6 +2,8 @@ import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {Panel} from '@components/panel/panel';
 import {ImageSliderItem} from '@components/image-slider-item/image-slider-item';
 import {ImageSliderButton} from '@components/image-slider-button/image-slider-button';
+import {SvgIconComponent} from 'angular-svg-icon';
+import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 
 @Component({
   selector: 'image-slider',
@@ -9,6 +11,8 @@ import {ImageSliderButton} from '@components/image-slider-button/image-slider-bu
     Panel,
     ImageSliderItem,
     ImageSliderButton,
+    SvgIconComponent,
+    VerticalSpacing,
   ],
   templateUrl: './image-slider.html',
   styleUrl: './image-slider.css'
