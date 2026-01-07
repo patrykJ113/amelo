@@ -43,7 +43,7 @@ export class ListingPage implements OnInit {
     this.listingService.getById(listingId).subscribe({
       next: listing => {
         this.listing = listing
-        this.loadListingPictures(this.listing.pictures)
+        this.listing.pictures.length ? this.loadListingPictures(this.listing.pictures) : this.hideLoader()
       },
       error: err => {
         this.error = true
