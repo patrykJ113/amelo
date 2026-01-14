@@ -6,6 +6,7 @@ import {RouterLink} from '@angular/router';
 import {Loading} from '@components/loading/loading';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
+import {RequestStatus} from '@typings/request-status';
 
 @Component({
   selector: 'listings-page',
@@ -21,6 +22,7 @@ import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical
 })
 export class ListingsPage implements OnInit {
   listings: GetAllListingsResponse = []
+  requestStatus: RequestStatus = 'Not Sent'
   loading: boolean = false
   constructor(private listingService: ListingService) {
   }
@@ -38,9 +40,14 @@ export class ListingsPage implements OnInit {
       },
       error: err => {
         console.log(err)
+        this.requestStatus = 'Error'
         this.hideLoader()
       }
     })
+  }
+
+  get errorOccurred() {
+    return this.requestStatus === 'Error'
   }
 
   showLoader() {

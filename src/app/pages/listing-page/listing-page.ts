@@ -8,6 +8,9 @@ import {Loading} from '@components/loading/loading';
 import {ImageSlider} from '@components/image-slider/image-slider';
 import {ListingInfoSection} from '@components/listing-info-section/listing-info-section';
 import {ListingDescriptionSection} from '@components/listing-description-section/listing-description-section';
+import {RequestStatus} from '@typings/request-status';
+import {SvgIconComponent} from 'angular-svg-icon';
+import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 
 @Component({
   selector: 'listing-page',
@@ -16,6 +19,8 @@ import {ListingDescriptionSection} from '@components/listing-description-section
     ImageSlider,
     ListingInfoSection,
     ListingDescriptionSection,
+    SvgIconComponent,
+    VerticalSpacing,
   ],
   templateUrl: './listing-page.html',
   styleUrl: './listing-page.css'
@@ -23,9 +28,9 @@ import {ListingDescriptionSection} from '@components/listing-description-section
 export class ListingPage implements OnInit {
   listingId: string | null = null
   listing: Listing | undefined = undefined
-  error: boolean = false
   loading: boolean = false
   imageUrls: string[] = []
+  requestStatus: RequestStatus = 'Not Sent'
 
   constructor(
     private listingService: ListingService,
@@ -46,8 +51,8 @@ export class ListingPage implements OnInit {
         this.listing.pictures.length ? this.loadListingPictures(this.listing.pictures) : this.hideLoader()
       },
       error: err => {
-        this.error = true
         this.hideLoader()
+        this.requestStatus = 'Error'
         console.error(err)
       }
     })
@@ -68,6 +73,10 @@ export class ListingPage implements OnInit {
 
   hideLoader() {
     this.loading = false
+  }
+
+  get errorOccurred() {
+    return this.requestStatus === 'Error'
   }
 
 }
