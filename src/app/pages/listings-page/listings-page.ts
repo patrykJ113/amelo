@@ -7,6 +7,7 @@ import {Loading} from '@components/loading/loading';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {RequestStatus} from '@typings/request-status';
+import {AppButton} from '@components/app/app-button/app-button';
 
 @Component({
   selector: 'listings-page',
@@ -15,7 +16,8 @@ import {RequestStatus} from '@typings/request-status';
     RouterLink,
     Loading,
     SvgIconComponent,
-    VerticalSpacing
+    VerticalSpacing,
+    AppButton,
   ],
   templateUrl: './listings-page.html',
   styleUrl: './listings-page.css'
@@ -24,7 +26,9 @@ export class ListingsPage implements OnInit {
   listings: GetAllListingsResponse = []
   requestStatus: RequestStatus = 'Not Sent'
   loading: boolean = false
-  constructor(private listingService: ListingService) {
+  constructor(
+    private listingService: ListingService,
+  ) {
   }
 
   ngOnInit() {
