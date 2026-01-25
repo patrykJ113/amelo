@@ -1,0 +1,47 @@
+<backdrop>
+  <div
+    cdkTrapFocus
+    [cdkTrapFocusAutoCapture]="open"
+  >
+    <vertical-spacing gap="8">
+      <horizontal-spacing justify="between">
+        <h1 class="text-3xl font-medium">{{ title }}</h1>
+
+        @if (!title) {
+          <ng-content select="[title]"/>
+        }
+
+        @if (hasCloseIcon) {
+          <svg-icon
+            tabindex="0"
+            src="x.svg"
+            class="inline-flex size-7 cursor-pointer hover:scale-125 text-gray-400/80 hover:text-gray-800 transition-all duration-200
+                     focus:outline-none focus:text-gray-800 focus:scale-125"
+            (click)="close()"
+          />
+        }
+      </horizontal-spacing>
+
+      <vertical-spacing gap="14">
+        <ng-content/>
+
+        <vertical-spacing
+          items="end"
+        >
+          <horizontal-spacing gap="4">
+            @if (hasCancelButton) {
+              <app-button
+                label="Cancel"
+                (click)="close()"
+              />
+            }
+
+            <ng-content
+              select="[submit-btn]"
+            />
+          </horizontal-spacing>
+        </vertical-spacing>
+      </vertical-spacing>
+    </vertical-spacing>
+  </div>
+</backdrop>
