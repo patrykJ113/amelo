@@ -8,56 +8,54 @@
     <div
       class="bg-white rounded-2xl col-span-full md:col-start-3 md:col-span-8 lg:col-start-4 lg:col-span-6
               xl:col-start-4 xl:col-span-6 2xl:col-start-5 2xl:col-span-4 p-5 transition-all duration-300 ease-out"
-      [ngClass]="open ? 'scale-100' : 'scale-90'"
       (click)="$event.stopPropagation()"
     >
-      @if (open) {
-        <div
-          cdkTrapFocus
-          cdkTrapFocusAutoCapture
-        >
-          <vertical-spacing gap="8">
-            <horizontal-spacing justify="between">
-              <h1 class="text-3xl">{{ title }}</h1>
+      <div
+        cdkTrapFocus
+        [cdkTrapFocusAutoCapture]="open"
+        class="transition-all duration-300"
+      >
+        <vertical-spacing gap="8">
+          <horizontal-spacing justify="between">
+            <h1 class="text-3xl">{{ title }}</h1>
 
-              @if (!title) {
-                <ng-content select="[title]"/>
-              }
+            @if (!title) {
+              <ng-content select="[title]"/>
+            }
 
-              @if (hasCloseIcon) {
-                <svg-icon
-                  tabindex="0"
-                  src="x.svg"
-                  class="inline-flex size-7 cursor-pointer hover:scale-125 text-gray-400/80 hover:text-gray-800 transition-all duration-200
+            @if (hasCloseIcon) {
+              <svg-icon
+                tabindex="0"
+                src="x.svg"
+                class="inline-flex size-7 cursor-pointer hover:scale-125 text-gray-400/80 hover:text-gray-800 transition-all duration-200
                      focus:outline-none focus:text-gray-800 focus:scale-125"
-                  (click)="close()"
-                />
-              }
-            </horizontal-spacing>
+                (click)="close()"
+              />
+            }
+          </horizontal-spacing>
 
-            <vertical-spacing gap="14">
-              <ng-content/>
+          <vertical-spacing gap="14">
+            <ng-content/>
 
-              <vertical-spacing
-                items="end"
-              >
-                <horizontal-spacing gap="4">
-                  @if (hasCancelButton) {
-                    <app-button
-                      label="Cancel"
-                      (click)="close()"
-                    />
-                  }
-
-                  <ng-content
-                    select="[submit-btn]"
+            <vertical-spacing
+              items="end"
+            >
+              <horizontal-spacing gap="4">
+                @if (hasCancelButton) {
+                  <app-button
+                    label="Cancel"
+                    (click)="close()"
                   />
-                </horizontal-spacing>
-              </vertical-spacing>
+                }
+
+                <ng-content
+                  select="[submit-btn]"
+                />
+              </horizontal-spacing>
             </vertical-spacing>
           </vertical-spacing>
-        </div>
-      }
+        </vertical-spacing>
+      </div>
     </div>
   </div>
 </div>
