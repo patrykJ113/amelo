@@ -1,22 +1,22 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/horizontal-spacing';
-import {SvgIconComponent} from 'angular-svg-icon';
 import {DialogService} from '@services/dialog.service';
 import {DialogRegistryService} from '@services/dialog-registry.service';
 import {CdkTrapFocus} from '@angular/cdk/a11y';
 import {AppButton} from '@components/app/app-button/app-button';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {Backdrop} from '@components/backdrop/backdrop';
+import {CloseIconButton} from '@components/close-icon-button/close-icon-button';
 
 @Component({
   selector: 'dialog-builder',
   imports: [
     HorizontalSpacing,
-    SvgIconComponent,
     CdkTrapFocus,
     AppButton,
     VerticalSpacing,
-    Backdrop
+    Backdrop,
+    CloseIconButton,
   ],
   providers: [DialogService],
   templateUrl: './dialog-builder.component.html',
@@ -27,6 +27,7 @@ export class DialogBuilder implements OnInit {
   @Input() hasCancelButton: boolean = true
   @Input() dialogRegistryId: string = ''
   @Input() title: string = ''
+  @Input() dialogPanelClass: string = ''
 
   constructor(
     private dialogService: DialogService,

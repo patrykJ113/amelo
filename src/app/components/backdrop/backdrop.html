@@ -3,14 +3,7 @@
      (click)="close()"
      [ngClass]="open ? 'opacity-100' : 'pointer-events-none'"
 >
-  <div
-    class="w-full grid mx-4 gap-4 grid-cols-4 sm:grid-cols-8 sm:mx-8 md:grid-cols-12 md:mx-6 md:gap-6 xl:mx-[200px]">
-    <div
-      class="bg-white rounded-lg col-span-full md:col-start-3 md:col-span-8 lg:col-start-4 lg:col-span-6
-              xl:col-start-4 xl:col-span-6 2xl:col-start-5 2xl:col-span-4 p-5 transition-all duration-300 ease-out"
-      (click)="$event.stopPropagation()"
-    >
-      <ng-content />
-    </div>
+  <div class="w-full sm:flex justify-center items-center mx-4">
+    <ng-content/>
   </div>
 </div>
