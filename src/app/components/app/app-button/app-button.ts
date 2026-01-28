@@ -15,6 +15,7 @@ export class AppButton {
   @Input() disabled: boolean = false
   @Input() type: 'button' | 'submit' = 'button'
   @Input() variant: ButtonVariant = 'Primary'
+  @Input() class: string = ''
 
   get isPrimary() {
     return this.variant === 'Primary' && this.isEnabled
