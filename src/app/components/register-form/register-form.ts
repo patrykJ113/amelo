@@ -5,6 +5,7 @@ import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical
 import {AppInput} from '@components/app/app-input/app-input';
 import {AppButton} from '@components/app/app-button/app-button';
 import {FormControl} from '@angular/forms';
+import {RevealUnderline} from '@components/reveal-underline/reveal-underline';
 
 @Component({
   selector: 'register-form',
@@ -13,7 +14,8 @@ import {FormControl} from '@angular/forms';
     OauthButtonGroup,
     VerticalSpacing,
     AppInput,
-    AppButton
+    AppButton,
+    RevealUnderline
   ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.css'

@@ -1,40 +1,41 @@
-<vertical-spacing gap="12">
-  <vertical-spacing gap="7" items="center">
-    <vertical-spacing gap="1" items="center">
-      <h1 class="text-3xl leading-8 font-medium">
-        Create Account
-      </h1>
+<vertical-spacing gap="1" items="center">
+  <h1 class="text-3xl leading-8 font-medium">
+    Create Account
+  </h1>
 
-      <p class="leading-5 text-gray-400">
-        Register with your social account
-      </p>
-    </vertical-spacing>
+  <p class="leading-5 text-gray-400">
+    Register with your social account
+  </p>
+</vertical-spacing>
 
-    <oauth-button-group/>
-  </vertical-spacing>
+<div class="mt-7">
+  <oauth-button-group/>
+</div>
 
-  <vertical-spacing gap="3">
-    <divider-with-text
-      text="Or with you’re email"
-    />
 
-    <vertical-spacing gap="6">
-      <app-input
-        label="E-mail"
-        type="email"
-        cdkFocusInitial
-        [control]="control"
-      />
+<div class="mt-14 mb-4">
+  <divider-with-text
+    text="Or with you’re email"
+  />
+</div>
 
-      <app-input
-        label="Password"
-        type="password"
-        [control]="control"
-      />
-    </vertical-spacing>
-  </vertical-spacing>
+<vertical-spacing gap="5">
+  <app-input
+    label="E-mail"
+    type="email"
+    cdkFocusInitial
+    [control]="control"
+  />
 
-  <vertical-spacing gap="4" items="center">
+  <app-input
+    label="Password"
+    type="password"
+    [control]="control"
+  />
+</vertical-spacing>
+
+<div class="mt-12">
+  <vertical-spacing gap="3" items="center">
     <app-button
       label="Register"
       class="w-full"
@@ -42,14 +43,7 @@
 
     <div class="text-gray-500">
       Have an account ?
-      <div
-        tabindex="0"
-        class="relative inline-flex cursor-pointer font-semibold text-blue-500 hover:text-blue-600 focus:outline-none translate-y-0 transition-transform duration-150 before:absolute before:left-0 before:-bottom-1
-                 before:h-[2px] before:w-0 before:bg-blue-600 before:block before:transition-all before:duration-150
-                 hover:-translate-y-0.5 hover:before:w-full focus:-translate-y-0.5 focus:before:w-full"
-      >
-        Sign In
-      </div>
+      <reveal-underline text="Sign In"/>
     </div>
   </vertical-spacing>
-</vertical-spacing>
+</div>
