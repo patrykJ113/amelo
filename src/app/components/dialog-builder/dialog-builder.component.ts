@@ -28,6 +28,7 @@ export class DialogBuilder implements OnInit {
   @Input() dialogRegistryId: string = ''
   @Input() title: string = ''
   @Input() dialogPanelClass: string = ''
+  panelTabIndex: number = 0
 
   constructor(
     private dialogService: DialogService,
@@ -35,8 +36,19 @@ export class DialogBuilder implements OnInit {
   ) {
   }
 
+  onFocusIn() {
+    if(this.panelTabIndex === 0) {
+      this.panelTabIndex = -1
+    }
+  }
+
   ngOnInit() {
     this.dialogRegistry.register(this.dialogRegistryId, this.dialogService)
+    this.dialogRegistry.get(this.dialogRegistryId)?.visible$.subscribe(open => {
+      if(open) {
+        this.panelTabIndex = 0
+      }
+    })
   }
 
   get open() {
