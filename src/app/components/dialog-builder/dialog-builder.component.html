@@ -4,7 +4,7 @@
     cdkTrapFocus
     (click)="$event.stopPropagation()"
     (focusin)="onFocusIn()"
-    [cdkTrapFocusAutoCapture]="open"
+    [cdkTrapFocusAutoCapture]="isOpen"
     [class]="dialogPanelClass"
     [tabIndex]="panelTabIndex"
   >

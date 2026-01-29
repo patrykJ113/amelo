@@ -8,6 +8,9 @@ export class DialogRegistryService {
   private dialogs = new Map<string, DialogService>()
 
   register(id: string, service: DialogService) {
+    if(id === '') {
+      throw new Error('⚠️ dialogRegistryId can not ba a empty string ❗')
+    }
     this.dialogs.set(id, service)
   }
 
