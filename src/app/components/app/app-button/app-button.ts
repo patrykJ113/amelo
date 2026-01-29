@@ -37,7 +37,7 @@ export class AppButton {
     return this.allBesideDisabled
   }
 
-  get blueTextAndBlueBgOnActive() {
+  get hasBlueText() {
     return this.isOutline || this.isText
   }
 
