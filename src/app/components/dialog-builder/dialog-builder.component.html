@@ -18,6 +18,7 @@
         @if (hasCloseIcon) {
           <close-icon-button
             class="ml-auto"
+            (keydown.enter)="close()"
             (click)="close()"
           />
         }
