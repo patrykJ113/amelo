@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {DividerWithText} from '@components/divider-with-text/divider-with-text';
 import {OauthButtonGroup} from '@components/oauth-button-group/oauth-button-group';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
@@ -22,4 +22,9 @@ import {RevealUnderline} from '@components/reveal-underline/reveal-underline';
 })
 export class RegisterForm {
   control = new FormControl()
+  @Output() goToLogIn = new EventEmitter()
+
+  onSignInEnterKeyDow() {
+    this.goToLogIn.emit()
+  }
 }

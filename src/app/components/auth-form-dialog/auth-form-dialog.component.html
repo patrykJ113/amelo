@@ -1,7 +1,26 @@
 <dialog-builder
   [hasCancelButton]="false"
-  dialogRegistryId="authForm"
-  dialogPanelClass="w-full sm:w-[400px]"
+  dialogRegistryId="auth-form"
+  dialogPanelClass="w-full sm:w-[400px] overflow-x-hidden"
 >
-  <register-form/>
+  @if (isLogIn) {
+    <login-form
+      animate.enter="enter-animation"
+      (goToRegister)="goToRegister()"
+      (goToResetPassword)="goToPasswordReset()"
+    />
+  }
+
+  @if (isRegister) {
+    <register-form
+      animate.enter="enter-animation"
+      (goToLogIn)="goToLogIn()"
+    />
+  }
+
+  @if (isPasswordReset) {
+    <reset-password-form
+      animate.enter="enter-animation"
+    />
+  }
 </dialog-builder>

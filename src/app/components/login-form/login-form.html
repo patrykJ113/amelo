@@ -1,10 +1,10 @@
-<vertical-spacing gap="1" items="center">
+<vertical-spacing gap="2" items="center">
   <h1 class="text-3xl leading-8 font-medium">
-    Create Account
+    Log In
   </h1>
 
   <p class="leading-5 text-gray-400">
-    Register with your social account
+    Welcome back! Choose a login method below
   </p>
 </vertical-spacing>
 
@@ -15,7 +15,7 @@
 
 <div class="mt-14 mb-4">
   <divider-with-text
-    text="Or with you’re email"
+    text="Or continue with email"
   />
 </div>
 
@@ -34,19 +34,28 @@
   />
 </vertical-spacing>
 
+<div class="flex justify-end mt-2">
+  <reveal-underline
+    class="!font-normal text-sm"
+    text="Forgot Password?"
+    (keydown.enter)="onForgotPasswordEnterKeyDow()"
+    (click)="onForgotPasswordEnterKeyDow()"
+  />
+</div>
+
 <div class="mt-12">
   <vertical-spacing gap="3" items="center">
     <app-button
-      label="Sign Up"
+      label="Sign In"
       class="w-full"
     />
 
     <div class="text-gray-500">
-      <span class="mr-1.5">Have an account ?</span>
+      <span class="mr-1.5">No account ?</span>
       <reveal-underline
-        text="Sign In"
-        (keydown.enter)="onSignInEnterKeyDow()"
-        (click)="onSignInEnterKeyDow()"
+        text="Sign Up"
+        (keydown.enter)="onSignUpEnterKeyDow()"
+        (click)="onSignUpEnterKeyDow()"
       />
     </div>
   </vertical-spacing>
