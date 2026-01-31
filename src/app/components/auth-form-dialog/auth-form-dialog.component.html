@@ -5,6 +5,7 @@
 >
   @if (isLogIn) {
     <login-form
+      #login
       animate.enter="enter-animation"
       (goToRegister)="goToRegister()"
       (goToResetPassword)="goToPasswordReset()"
@@ -13,14 +14,13 @@
 
   @if (isRegister) {
     <register-form
+      #register
       animate.enter="enter-animation"
       (goToLogIn)="goToLogIn()"
     />
   }
 
-  @if (isPasswordReset) {
-    <reset-password-form
-      animate.enter="enter-animation"
-    />
-  }
+<!--  @if (isPasswordReset) {-->
+<!--    <reset-password-form animate.enter="enter-animation" />-->
+<!--  }-->
 </dialog-builder>
