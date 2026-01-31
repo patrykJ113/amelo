@@ -1,61 +1,85 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChild,
+  ElementRef,
+  OnDestroy
+} from '@angular/core';
 import {DialogBuilder} from '@components/dialog-builder/dialog-builder.component';
 import {RegisterForm} from '@components/register-form/register-form';
 import {LoginForm} from '@components/login-form/login-form';
-import {AuthFormVariant} from '@typings/auth-form-variant';
 import {ResetPasswordForm} from '@components/reset-password-form/reset-password-form';
-import {from} from 'rxjs';
+import {AuthFormVariant} from '@typings/auth-form-variant';
+
+const LEAVE_ANIMATION_CLASS = 'leave-animation';
 
 @Component({
   selector: 'auth-form-dialog',
-  imports: [
-    DialogBuilder,
-    RegisterForm,
-    LoginForm,
-    ResetPasswordForm
-  ],
+  imports: [DialogBuilder, RegisterForm, LoginForm, ResetPasswordForm],
   templateUrl: './auth-form-dialog.component.html',
   styleUrl: './auth-form-dialog.component.css'
 })
-export class AuthFormDialog {
-  @Input() shownForm: AuthFormVariant = 'LOG_IN'
-  @ViewChild(LoginForm, {read: ElementRef}) loginForm!: ElementRef
-  @ViewChild(RegisterForm, {read: ElementRef}) registerForm!: ElementRef
-  @ViewChild(ResetPasswordForm, {read: ElementRef}) resetPasswordForm!: ElementRef
+export class AuthFormDialog implements OnDestroy {
+  @Input() shownForm: AuthFormVariant = 'LOG_IN';
 
-  get isLogIn() {
-    return this.shownForm === 'LOG_IN'
+  @ViewChild('login', {read: ElementRef}) loginForm?: ElementRef<HTMLElement>;
+  @ViewChild('register', {read: ElementRef}) registerForm?: ElementRef<HTMLElement>;
+
+  private activeAnimationEl?: HTMLElement;
+
+  get isLogIn(): boolean {
+    return this.shownForm === 'LOG_IN';
   }
 
-  get isRegister() {
-    return this.shownForm === 'REGISTER'
+  get isRegister(): boolean {
+    return this.shownForm === 'REGISTER';
   }
 
-  get isPasswordReset() {
-    return this.shownForm === 'PASSWORD_RESET'
+  get isPasswordReset(): boolean {
+    return this.shownForm === 'PASSWORD_RESET';
   }
 
-  goToRegister() {
-    this.startAnimation('REGISTER')
+  goToRegister(): void {
+    this.switchWithAnimation('REGISTER', this.loginForm);
   }
 
-  goToLogIn() {
-    this.startAnimation('LOG_IN')
+  goToLogIn(): void {
+    this.switchWithAnimation('LOG_IN', this.registerForm);
   }
 
-  goToPasswordReset() {
-    this.shownForm = 'PASSWORD_RESET'
+  goToPasswordReset(): void {
+    // this.shownForm = 'PASSWORD_RESET';
   }
 
-  startAnimation(form: AuthFormVariant) {
-    let formEl: ElementRef = form === 'LOG_IN' ? this.registerForm : this.loginForm
-
-    const onEnd = () => {
-      formEl.nativeElement.classList.remove('leave-animation')
-      formEl.nativeElement.removeEventListener('animationend', onEnd)
-      this.shownForm = form
+  private switchWithAnimation(target: AuthFormVariant, source?: ElementRef<HTMLElement>): void {
+    const el = source?.nativeElement;
+    if (!el) {
+      this.shownForm = target;
+      return;
     }
-    formEl.nativeElement.classList.add('leave-animation')
-    formEl.nativeElement.addEventListener('animationend', onEnd)
+
+    this.cleanupAnimation();
+
+    this.activeAnimationEl = el;
+    el.classList.add(LEAVE_ANIMATION_CLASS);
+
+    const handler = () => {
+      el.classList.remove(LEAVE_ANIMATION_CLASS);
+      el.removeEventListener('animationend', handler);
+      this.shownForm = target;
+      this.activeAnimationEl = undefined;
+    };
+
+    el.addEventListener('animationend', handler, {once: true});
+  }
+
+  private cleanupAnimation(): void {
+    if (!this.activeAnimationEl) return;
+    this.activeAnimationEl.classList.remove(LEAVE_ANIMATION_CLASS);
+    this.activeAnimationEl = undefined;
+  }
+
+  ngOnDestroy(): void {
+    this.cleanupAnimation();
   }
 }
