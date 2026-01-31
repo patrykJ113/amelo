@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppInput} from "@components/app/app-input/app-input";
-import {AppTextarea} from "@components/app-textarea/app-textarea";
+import {AppTextarea} from "@components/app/app-textarea/app-textarea";
 import {Combobox} from "@components/combobox/combobox";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DropdownOption} from '@typings/dropdown-option';
@@ -9,7 +9,7 @@ import {CategoryService} from '@services/category.service';
 import {Loading} from '@components/loading/loading';
 import {Panel} from '@components/panel/panel';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
-import {ImagePicker} from '@components/image-picker/image-picker';
+import {ImagePicker} from '@components/image/image-picker/image-picker';
 
 @Component({
   selector: 'listing-form',
