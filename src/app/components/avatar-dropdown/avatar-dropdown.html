@@ -15,9 +15,9 @@
 
   <drop-down-menu [open]="open">
     <drop-down-sub-menu [divider]="false">
-      <menu-item svgSrc="gear-wheel" text="Profile"/>
-      <menu-item svgSrc="gear-wheel" text="Messages"/>
-      <menu-item svgSrc="gear-wheel" text="Notifications"/>
+      <menu-item svgSrc="user" text="Profile"/>
+      <menu-item svgSrc="chat-bubble" text="Messages"/>
+      <menu-item svgSrc="bell" text="Notifications"/>
     </drop-down-sub-menu>
 
     <drop-down-sub-menu>
@@ -26,7 +26,10 @@
     </drop-down-sub-menu>
 
     <drop-down-sub-menu>
-      <menu-item svgSrc="gear-wheel" text="Log out"/>
+      <menu-item
+        svgSrc="arrow-right-start-on-rectangle"
+        text="Log out"
+      />
     </drop-down-sub-menu>
   </drop-down-menu>
 </div>
