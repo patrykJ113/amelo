@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, signal, ViewChild, WritableSignal} from '@angular/core';
 import {DropDownMenu} from '@components/drop-down-menu/drop-down-menu';
 import {DropDownSubMenu} from '@components/drop-down-sub-menu/drop-down-sub-menu';
 import {MenuItem} from '@components/menu-item/menu-item';
@@ -20,7 +20,7 @@ import {MenuItem} from '@components/menu-item/menu-item';
 export class AvatarDropdown {
   @Input() initials: string = ''
   @ViewChild('dropdown', {read: ElementRef}) dropdown!: ElementRef
-  open: boolean = false
+  open: WritableSignal<boolean> = signal(false)
 
   onClick(e: PointerEvent) {
     const clickOutsideDropDown = !this.dropdown.nativeElement.contains(e.target)
@@ -28,18 +28,18 @@ export class AvatarDropdown {
   }
 
   onScroll() {
-    if(this.open) this.closeDropdown()
+    if(this.open()) this.closeDropdown()
   }
 
   toggleDropdown() {
-    this.open = !this.open
+    this.open.update(old => !old)
   }
 
   openDropdown() {
-    this.open = true
+    this.open.set(true)
   }
 
   closeDropdown() {
-    this.open = false
+    this.open.set(false)
   }
 }
