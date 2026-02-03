@@ -1,9 +1,10 @@
 <li
   tabindex="0"
-  class="p-3 hover:bg-blue-100/50 hover:text-blue-950 rounded-md border border-transparent
-        text-gray-700 cursor-pointer transition-all hover:border-gray-200 group"
+  class="p-3 hover:bg-blue-100/50 hover:text-blue-950 rounded-md border border-transparent focus:outline-0
+        text-gray-700 cursor-pointer transition-all hover:border-gray-200 group
+        focus-visible:text-blue-950 focus-visible:bg-blue-100/50 focus-visible:border-gray-200"
 >
-  <div class="group-hover:translate-x-2 transition-all duration-200">
+  <div class="group-hover:translate-x-2 group-focus-within:translate-x-2 transition-all duration-200">
     <horizontal-spacing gap="2" items="start">
       <svg-icon
         [src]="src"
