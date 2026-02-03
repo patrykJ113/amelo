@@ -8,6 +8,8 @@
            relative z-10 focus-visible:scale-105 focus-visible:ring-[6px] focus-visible:ring-blue-500/20 focus-visible:bg-blue-400 focus-visible:text-gray-200
            hover:scale-105 hover:ring-[6px] hover:ring-blue-500/20 hover:bg-blue-400 hover:text-gray-200"
     (click)="toggleDropdown()"
+    (keydown.enter)="openDropdown()"
+    (keydown.esc)="closeDropdown()"
   >
     {{ initials }}
   </div>
