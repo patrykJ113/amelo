@@ -1,0 +1,29 @@
+.enter-animation {
+  animation: enter-slide .2s;
+}
+
+.leave-animation {
+  animation: leave-slide .2s;
+}
+
+@keyframes enter-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes leave-slide {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}

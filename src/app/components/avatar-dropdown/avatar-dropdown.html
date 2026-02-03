@@ -1,0 +1,26 @@
+<div class="relative">
+  <div
+    tabindex="0"
+    class="p-4 rounded-full bg-blue-300 size-10 flex justify-center items-center cursor-pointer text-blue-900 relative z-10"
+    (click)="toggleDropDown()"
+  >
+    {{ initials }}
+  </div>
+
+  <drop-down-menu [open]="open">
+    <drop-down-sub-menu [divider]="false">
+      <menu-item svgSrc="gear-wheel" text="Profile"/>
+      <menu-item svgSrc="gear-wheel" text="Messages"/>
+      <menu-item svgSrc="gear-wheel" text="Notifications"/>
+    </drop-down-sub-menu>
+
+    <drop-down-sub-menu>
+      <menu-item svgSrc="gear-wheel" text="Dark Mode"/>
+      <menu-item svgSrc="gear-wheel" text="Setings"/>
+    </drop-down-sub-menu>
+
+    <drop-down-sub-menu>
+      <menu-item svgSrc="gear-wheel" text="Log out"/>
+    </drop-down-sub-menu>
+  </drop-down-menu>
+</div>
