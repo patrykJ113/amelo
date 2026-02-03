@@ -11,7 +11,8 @@ import {MenuItem} from '@components/menu-item/menu-item';
     MenuItem
   ],
   host: {
-    '(document:click)': 'onClick($event)'
+    '(document:click)': 'onClick($event)',
+    '(document:scroll)': 'onScroll()'
   },
   templateUrl: './avatar-dropdown.html',
   styleUrl: './avatar-dropdown.css'
@@ -24,6 +25,10 @@ export class AvatarDropdown {
   onClick(e: PointerEvent) {
     const clickOutsideDropDown = !this.dropdown.nativeElement.contains(e.target)
     if (clickOutsideDropDown) this.closeDropdown()
+  }
+
+  onScroll() {
+    if(this.open) this.closeDropdown()
   }
 
   toggleDropdown() {
