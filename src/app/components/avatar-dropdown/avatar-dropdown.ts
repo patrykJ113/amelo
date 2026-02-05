@@ -2,6 +2,7 @@ import {Component, ElementRef, Input, signal, ViewChild, WritableSignal} from '@
 import {DropDownMenu} from '@components/drop-down-menu/drop-down-menu';
 import {DropDownSubMenu} from '@components/drop-down-sub-menu/drop-down-sub-menu';
 import {MenuItem} from '@components/menu-item/menu-item';
+import {Avatar} from '@components/avatar/avatar';
 
 @Component({
   selector: 'avatar-dropdown',
@@ -9,6 +10,7 @@ import {MenuItem} from '@components/menu-item/menu-item';
     DropDownMenu,
     DropDownSubMenu,
     MenuItem,
+    Avatar,
   ],
   host: {
     '(document:click)': 'onClick($event)',
