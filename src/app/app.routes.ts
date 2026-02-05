@@ -4,6 +4,7 @@ import {AddListingPage} from '@pages/add-listing-page/add-listing-page';
 import {ListingsPage} from '@pages/listings-page/listings-page';
 import {ListingPage} from '@pages/listing-page/listing-page';
 import {NotFound} from '@components/not-found/not-found';
+import {AccountSettingsPage} from '@pages/account-settings-page/account-settings-page';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,10 @@ export const routes: Routes = [
       {
         path: 'listings',
         component: ListingsPage
+      },
+      {
+        path: 'account-settings',
+        component: AccountSettingsPage
       },
       {
         path: '**',
