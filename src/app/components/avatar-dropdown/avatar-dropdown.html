@@ -15,20 +15,40 @@
 
   <drop-down-menu [open]="open">
     <drop-down-sub-menu [divider]="false">
-      <menu-item svgSrc="user" text="Profile"/>
-      <menu-item svgSrc="chat-bubble" text="Messages"/>
-      <menu-item svgSrc="bell" text="Notifications"/>
+      <menu-item
+        svgSrc="user"
+        text="Profile"
+      />
+
+      <menu-item
+        svgSrc="chat-bubble"
+        text="Messages"
+      />
+
+      <menu-item
+        svgSrc="bell"
+        text="Notifications"
+      />
     </drop-down-sub-menu>
 
     <drop-down-sub-menu>
-      <menu-item svgSrc="gear-wheel" text="Dark Mode"/>
-      <menu-item svgSrc="gear-wheel" text="Setings"/>
+      <menu-item
+        svgSrc="moon"
+        text="Dark Mode"
+      />
+
+      <menu-item
+        svgSrc="gear-wheel"
+        text="Setings"
+        url="account-settings"
+      />
     </drop-down-sub-menu>
 
     <drop-down-sub-menu>
       <menu-item
         svgSrc="arrow-right-start-on-rectangle"
         text="Log out"
+        [onSelectItemCallBack]="logOut"
       />
     </drop-down-sub-menu>
   </drop-down-menu>

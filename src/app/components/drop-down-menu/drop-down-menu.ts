@@ -18,6 +18,10 @@ export class DropDownMenu {
     this.open?.set(false)
   }
 
+  close() {
+    this.open?.set(false)
+  }
+
   get isOpen(): boolean {
     return this.open ? this.open() : false
   }

@@ -8,7 +8,7 @@ import {MenuItem} from '@components/menu-item/menu-item';
   imports: [
     DropDownMenu,
     DropDownSubMenu,
-    MenuItem
+    MenuItem,
   ],
   host: {
     '(document:click)': 'onClick($event)',
@@ -41,5 +41,9 @@ export class AvatarDropdown {
 
   closeDropdown() {
     this.open.set(false)
+  }
+
+  logOut = () => {
+    console.log('logOut called!!!')
   }
 }
