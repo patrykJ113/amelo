@@ -27,7 +27,7 @@ export class MenuItem {
   }
 
   useCallBackOrNavigate() {
-    this.onSelectItemCallBack?.() || this.router.navigate([this.url])
+    this.onSelectItemCallBack?.() || (this.url && this.router.navigate([this.url]))
   }
 
   onClick() {
