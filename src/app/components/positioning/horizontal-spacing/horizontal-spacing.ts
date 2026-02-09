@@ -10,6 +10,7 @@ import {Spacing} from '@components/positioning/spacing/spacing';
     Spacing
   ],
   templateUrl: './horizontal-spacing.html',
+  standalone: true,
   styleUrl: './horizontal-spacing.css'
 })
 export class HorizontalSpacing {

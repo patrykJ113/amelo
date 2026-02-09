@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ListingCard} from '@components/listing-card/listing-card';
+import {ListingCard} from '@components/listing/listing-card/listing-card';
 import {ListingService} from '@services/listing.service';
 import {GetAllListingsResponse} from '@typings/listing';
 import {RouterLink} from '@angular/router';

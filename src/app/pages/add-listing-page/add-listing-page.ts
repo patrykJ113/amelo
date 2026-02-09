@@ -1,6 +1,6 @@
 import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core';
 import {AppButton} from '@components/app/app-button/app-button';
-import {ListingForm} from '@components/listing-form/listing-form';
+import {ListingForm} from '@components/listing/listing-form/listing-form';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/horizontal-spacing';
 import {ListingRequestBody} from '@typings/listing';
