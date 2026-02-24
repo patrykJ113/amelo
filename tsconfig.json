@@ -21,7 +21,8 @@
       "@services/*": ["src/app/services/*"],
       "@typings/*": ["src/app/typings/*"],
       "@validators/*": ["src/app/validators/*"],
-      "@helpers/*": ["src/app/helpers/*"]
+      "@helpers/*": ["src/app/helpers/*"],
+      "@environments/*": ["src/app/environments/*"]
     }
   },
   "angularCompilerOptions": {
