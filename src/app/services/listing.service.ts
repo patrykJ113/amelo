@@ -7,21 +7,21 @@ import {GetAllListingsResponse, Listing, ListingRequestBody} from '@typings/list
   providedIn: 'root'
 })
 export class ListingService {
-  private categoryUrl = 'http://localhost:8080/api/listing'
+  private apiUrl = 'http://localhost:8080/api/v1/listing'
 
   constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<GetAllListingsResponse> {
-    return this.http.get<GetAllListingsResponse>(this.categoryUrl)
+    return this.http.get<GetAllListingsResponse>(this.apiUrl)
   }
 
   getById(id: string): Observable<Listing> {
-    return this.http.get<Listing>(`${this.categoryUrl}/${id}`)
+    return this.http.get<Listing>(`${this.apiUrl}/${id}`)
   }
 
   getImage(id: string, pictureName: string): Observable<Blob> {
-    return this.http.get(`${this.categoryUrl}/${id}/picture/${pictureName}`, { responseType: 'blob' })
+    return this.http.get(`${this.apiUrl}/${id}/picture/${pictureName}`, { responseType: 'blob' })
   }
 
   create(listing: ListingRequestBody, files: File[]): Observable<Listing> {
@@ -33,14 +33,14 @@ export class ListingService {
       files.forEach(file => formData.append('files', file))
     }
 
-    return this.http.post<Listing>(this.categoryUrl, formData)
+    return this.http.post<Listing>(this.apiUrl, formData)
   }
 
   update(id: string, listing: ListingRequestBody): Observable<Listing> {
-    return this.http.put<Listing>(`${this.categoryUrl}/${id}`, listing)
+    return this.http.put<Listing>(`${this.apiUrl}/${id}`, listing)
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.categoryUrl}/${id}`)
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)
   }
 }
