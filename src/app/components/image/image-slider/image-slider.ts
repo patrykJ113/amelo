@@ -1,7 +1,7 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {Panel} from '@components/panel/panel';
-import {ImageSliderItem} from '@components/image-slider-item/image-slider-item';
-import {ImageSliderButton} from '@components/image-slider-button/image-slider-button';
+import {ImageSliderItem} from '@components/image/image-slider-item/image-slider-item';
+import {ImageSliderButton} from '@components/image/image-slider-button/image-slider-button';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 

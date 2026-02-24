@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ImageSlot} from '@components/image-slot/image-slot';
+import {ImageSlot} from '@components/image/image-slot/image-slot';
 
 @Component({
   selector: 'image-picker',
