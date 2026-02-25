@@ -4,11 +4,12 @@ import {OauthButtonGroup} from '@components/oauth-button-group/oauth-button-grou
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {AppInput} from '@components/app/app-input/app-input';
 import {AppButton} from '@components/app/app-button/app-button';
-import {FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RevealUnderline} from '@components/reveal-underline/reveal-underline';
 import {AuthService} from '@services/auth.service';
 import {getFormControl} from '@helpers/get-form-control';
 import {PasswordHints} from '@components/password-hints/password-hints';
+import {passwordValidator} from '@validators/password';
 
 @Component({
   selector: 'register-form',
@@ -25,8 +26,18 @@ import {PasswordHints} from '@components/password-hints/password-hints';
   styleUrl: './register-form.css'
 })
 export class RegisterForm {
-  control = new FormControl()
   @Output() goToLogIn = new EventEmitter()
+  form: FormGroup
+
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, passwordValidator]]
+    })
+  }
 
   onSignInEnterKeyDow() {
     this.goToLogIn.emit()

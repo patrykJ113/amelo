@@ -31,7 +31,7 @@ export function getErrorMessage({ errors }: FormControl, label: string): string 
 
   if (errors['required']) return `${label} is required`
 
-  if (errors['email']) return `email is invalid`
+  if (errors['email'] || errors['password']) return `${label} is invalid`
 
   return ''
 }
