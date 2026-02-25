@@ -1,36 +1,37 @@
 import {FormControl} from '@angular/forms';
 
 export function getErrorMessage({ errors }: FormControl, label: string): string {
-  let errorMsg = ''
 
-  if (errors?.['noMatchingOption']) {
-    errorMsg = `${label} doesn't exist`;
-  }
+  if(!errors) return ''
 
-  if (errors?.['minlength']) {
+
+  console.log(errors)
+
+  if (errors['noMatchingOption']) return `${label} doesn't exist`
+
+  if (errors['minlength']) {
     const requiredMinLength = errors['minlength'].requiredLength;
-    errorMsg = `${label} too short (min ${requiredMinLength} characters)`;
+    return `${label} too short (min ${requiredMinLength} characters)`;
   }
 
-  if (errors?.['maxlength']) {
+  if (errors['maxlength']) {
     const requiredMaxLength = errors['maxlength'].requiredLength;
-    errorMsg = `${label} too long (max ${requiredMaxLength} characters)`;
+    return `${label} too long (max ${requiredMaxLength} characters)`;
   }
 
-  if (errors?.['min']) {
+  if (errors['min']) {
     const requiredMin = errors['min'].min;
-    errorMsg = `${label} too small (min ${requiredMin} characters)`;
+    return`${label} too small (min ${requiredMin} characters)`;
   }
 
-  if (errors?.['max']) {
+  if (errors['max']) {
     const requiredMax = errors['max'].max;
-    errorMsg = `${label} too big (max ${requiredMax} characters)`;
+    return `${label} too big (max ${requiredMax} characters)`;
   }
 
-  if (errors?.['required']) {
-    errorMsg = `${label} is required`;
-  }
+  if (errors['required']) return `${label} is required`
 
+  if (errors['email']) return `email is invalid`
 
-  return errorMsg
+  return ''
 }
