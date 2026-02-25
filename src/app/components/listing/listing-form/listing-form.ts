@@ -10,6 +10,7 @@ import {Loading} from '@components/loading/loading';
 import {Panel} from '@components/panel/panel';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {ImagePicker} from '@components/image/image-picker/image-picker';
+import {getFormControl} from '@helpers/get-form-control';
 
 @Component({
   selector: 'listing-form',
@@ -27,7 +28,7 @@ import {ImagePicker} from '@components/image/image-picker/image-picker';
   styleUrl: './listing-form.css'
 })
 export class ListingForm implements OnInit {
-  form: FormGroup | undefined = undefined
+  form: FormGroup
   carCategories: DropdownOption[] = []
   loading: boolean = true
 
@@ -76,6 +77,6 @@ export class ListingForm implements OnInit {
   }
 
   getControl(controlName: string): FormControl {
-    return this.form?.get(controlName) as FormControl
+    return getFormControl(this.form, controlName)
   }
 }

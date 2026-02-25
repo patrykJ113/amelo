@@ -12,7 +12,6 @@
   <oauth-button-group/>
 </div>
 
-
 <div class="mt-14 mb-4">
   <divider-with-text
     text="Or with you’re email"
@@ -24,13 +23,13 @@
     label="E-mail"
     type="email"
     cdkFocusInitial
-    [control]="control"
+    [control]="getControl('email')"
   />
 
   <app-input
     label="Password"
     type="password"
-    [control]="control"
+    [control]="getControl('password')"
   />
 </vertical-spacing>
 

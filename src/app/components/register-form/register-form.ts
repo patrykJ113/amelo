@@ -6,6 +6,8 @@ import {AppInput} from '@components/app/app-input/app-input';
 import {AppButton} from '@components/app/app-button/app-button';
 import {FormControl} from '@angular/forms';
 import {RevealUnderline} from '@components/reveal-underline/reveal-underline';
+import {AuthService} from '@services/auth.service';
+import {getFormControl} from '@helpers/get-form-control';
 
 @Component({
   selector: 'register-form',
@@ -26,5 +28,13 @@ export class RegisterForm {
 
   onSignInEnterKeyDow() {
     this.goToLogIn.emit()
+  }
+
+  getControl(controlName: string) {
+    return getFormControl(this.form, controlName)
+  }
+
+  register() {
+
   }
 }
