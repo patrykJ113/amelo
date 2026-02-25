@@ -8,6 +8,7 @@ import {FormControl} from '@angular/forms';
 import {RevealUnderline} from '@components/reveal-underline/reveal-underline';
 import {AuthService} from '@services/auth.service';
 import {getFormControl} from '@helpers/get-form-control';
+import {PasswordHints} from '@components/password-hints/password-hints';
 
 @Component({
   selector: 'register-form',
@@ -17,7 +18,8 @@ import {getFormControl} from '@helpers/get-form-control';
     VerticalSpacing,
     AppInput,
     AppButton,
-    RevealUnderline
+    RevealUnderline,
+    PasswordHints
   ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.css'
