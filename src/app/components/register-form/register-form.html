@@ -32,7 +32,10 @@
     [control]="getControl('password')"
   />
 
-  <password-hints/>
+  <password-hints
+    [password]="getControl('password').value"
+    [firstSubmit]="firstSubmit"
+  />
 
 </vertical-spacing>
 

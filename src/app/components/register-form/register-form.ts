@@ -27,6 +27,7 @@ import {passwordValidator} from '@validators/password';
 })
 export class RegisterForm {
   @Output() goToLogIn = new EventEmitter()
+  firstSubmit: boolean = false
   form: FormGroup
 
   constructor(
@@ -48,6 +49,7 @@ export class RegisterForm {
   }
 
   register() {
-
+    this.firstSubmit = true
+    if(this.form.invalid) this.form.markAllAsTouched()
   }
 }
