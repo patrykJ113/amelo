@@ -4,9 +4,6 @@ export function getErrorMessage({ errors }: FormControl, label: string): string 
 
   if(!errors) return ''
 
-
-  console.log(errors)
-
   if (errors['noMatchingOption']) return `${label} doesn't exist`
 
   if (errors['minlength']) {
