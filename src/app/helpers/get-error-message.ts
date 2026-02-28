@@ -26,6 +26,8 @@ export function getErrorMessage({ errors }: FormControl, label: string): string 
     return `${label} too big (max ${requiredMax} characters)`;
   }
 
+  if(errors['emailTaken']) return `${label} is taken`
+
   if (errors['required']) return `${label} is required`
 
   if (errors['email'] || errors['password']) return `${label} is invalid`

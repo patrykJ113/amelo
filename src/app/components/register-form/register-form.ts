@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, signal} from '@angular/core';
 import {DividerWithText} from '@components/divider-with-text/divider-with-text';
 import {OauthButtonGroup} from '@components/oauth-button-group/oauth-button-group';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
@@ -11,6 +11,9 @@ import {getFormControl} from '@helpers/get-form-control';
 import {PasswordHints} from '@components/password-hints/password-hints';
 import {passwordValidator} from '@validators/password';
 import {InputType} from '@typings/input-type';
+import {Credentials} from '@typings/Credentials';
+import {Alert} from '@components/alert/alert';
+import {getErrorMessageForCode} from '@helpers/get-error-message-for-code';
 
 @Component({
   selector: 'register-form',
@@ -21,13 +24,17 @@ import {InputType} from '@typings/input-type';
     AppInput,
     AppButton,
     RevealUnderline,
-    PasswordHints
+    PasswordHints,
+    Alert
   ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.css'
 })
 export class RegisterForm {
   @Output() goToLogIn = new EventEmitter()
+  showError = signal(false)
+  errorMessage = ''
+
   firstSubmit: boolean = false
   form: FormGroup
   passwordInputType: Extract<InputType, 'password' | 'text'> = 'password'
@@ -53,7 +60,25 @@ export class RegisterForm {
 
   register() {
     this.firstSubmit = true
-    if (this.form.invalid) this.form.markAllAsTouched()
+    if (this.form.invalid) {
+      this.form.markAllAsTouched()
+      return
+    }
+
+    const credentials: Credentials = {
+      email: this.form.get('email')?.value,
+      password: this.form.get('password')?.value
+    }
+
+    this.authService.register(credentials).subscribe({
+      next: () => {},
+      error: err => {
+        this.errorMessage = getErrorMessageForCode(err.error.code)
+        this.showError.set(true)
+        this.getControl('email').setErrors({ emailTaken: true })
+        console.log(err)
+      }
+    })
   }
 
   showPassword = () => {

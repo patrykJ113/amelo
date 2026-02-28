@@ -12,10 +12,20 @@
   <oauth-button-group/>
 </div>
 
-<div class="mt-14 mb-4">
-  <divider-with-text
-    text="Or with you’re email"
-  />
+<div class="mt-12">
+  <vertical-spacing gap="5">
+    <alert
+      [message]="errorMessage"
+      type="ERROR"
+      [show]="showError"
+    />
+
+    <div class="mb-4">
+      <divider-with-text
+        text="Or with you’re email"
+      />
+    </div>
+  </vertical-spacing>
 </div>
 
 <vertical-spacing gap="5">
