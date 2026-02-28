@@ -10,6 +10,7 @@ import {AuthService} from '@services/auth.service';
 import {getFormControl} from '@helpers/get-form-control';
 import {PasswordHints} from '@components/password-hints/password-hints';
 import {passwordValidator} from '@validators/password';
+import {InputType} from '@typings/input-type';
 
 @Component({
   selector: 'register-form',
@@ -29,6 +30,8 @@ export class RegisterForm {
   @Output() goToLogIn = new EventEmitter()
   firstSubmit: boolean = false
   form: FormGroup
+  passwordInputType: Extract<InputType, 'password' | 'text'> = 'password'
+  passwordSvgFileName: 'eye' | 'eye-slash' = 'eye'
 
   constructor(
     private authService: AuthService,
@@ -50,6 +53,13 @@ export class RegisterForm {
 
   register() {
     this.firstSubmit = true
-    if(this.form.invalid) this.form.markAllAsTouched()
+    if (this.form.invalid) this.form.markAllAsTouched()
+  }
+
+  showPassword = () => {
+    const isHidden = this.passwordInputType === 'password';
+
+    this.passwordInputType = isHidden ? 'text' : 'password';
+    this.passwordSvgFileName = isHidden ? 'eye-slash' : 'eye';
   }
 }
