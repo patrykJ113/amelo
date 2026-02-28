@@ -1,36 +1,25 @@
-<div class="relative">
-  @if (isTextArea) {
-    <textarea
-      [formControl]="control"
-      rows="3"
-      class="peer w-full border-2 rounded-lg
-           px-3 pt-6 pb-1.5 outline-none
-           transition-all duration-200 focus:ring-4
-           placeholder-transparent"
-      [ngClass]="[isError ?
-              'focus:border-red-500 focus:ring-red-500/30 border-red-500' :
-              'focus:border-blue-500 focus:ring-blue-500/30 border-gray-300',
+<div
+  class="relative outline-none border-2 rounded-lg transition-all duration-200 focus-within:ring-4 flex group"
+  [ngClass]="[isError ?
+              'focus-within:border-red-500 focus-within:ring-red-500/30 border-red-500' :
+              'focus-within:border-blue-500 focus-within:ring-blue-500/30 border-gray-300',
               disabled ?
                 '!border-gray-200 cursor-not-allowed text-gray-300' :
                 'text-gray-600'
               ]"
+>
+  @if (isTextArea) {
+    <textarea
+      [formControl]="control"
+      rows="3"
+      class="peer w-full px-3 pt-6 pb-1.5 outline-none placeholder-transparent"
       placeholder=" "
     ></textarea>
   } @else {
     <input
       [type]="type"
       [formControl]="control"
-      class="peer w-full border-2 rounded-lg
-           px-3 pt-6 pb-1.5 outline-none
-           transition-all duration-200 focus:ring-4
-           placeholder-transparent"
-      [ngClass]="[isError ?
-              'focus:border-red-500 focus:ring-red-500/30 border-red-500' :
-              'focus:border-blue-500 focus:ring-blue-500/30 border-gray-300',
-              disabled ?
-                '!border-gray-200 cursor-not-allowed text-gray-300' :
-                'text-gray-600'
-              ]"
+      class="peer w-full px-3 pt-6 pb-1.5 outline-none placeholder-transparent"
       placeholder=" "
     >
   }
@@ -53,4 +42,21 @@
   >
     {{ isError ? getErrorMsg() : label }}
   </label>
+
+  @if (hasSvg) {
+    <div class="w-14 flex justify-center items-center rounded-r-lg">
+      <svg-icon
+        class="inline-flex size-6"
+        [src]="`${svgFileName}.svg`"
+        (click)="svgCb?.()"
+        [ngClass]="{
+          'text-red-500': isError,
+          'group-focus-within:text-blue-500': !isError,
+          'text-gray-500': !disabled,
+          'text-gray-300': disabled,
+          'cursor-pointer': hasCallback
+        }"
+      />
+    </div>
+  }
 </div>

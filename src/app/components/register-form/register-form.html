@@ -23,12 +23,15 @@
     label="E-mail"
     type="email"
     cdkFocusInitial
+    svgFileName="at-symbol"
     [control]="getControl('email')"
   />
 
   <app-input
     label="Password"
-    type="password"
+    [svgFileName]="passwordSvgFileName"
+    [type]="passwordInputType"
+    [svgCb]="showPassword"
     [control]="getControl('password')"
   />
 
