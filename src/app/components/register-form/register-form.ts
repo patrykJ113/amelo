@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, signal} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, Output, signal} from '@angular/core';
 import {DividerWithText} from '@components/divider-with-text/divider-with-text';
 import {OauthButtonGroup} from '@components/oauth-button-group/oauth-button-group';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
@@ -15,8 +15,9 @@ import {Credentials} from '@typings/Credentials';
 import {Alert} from '@components/alert/alert';
 import {getErrorMessageForCode} from '@helpers/get-error-message-for-code';
 import {Spinner} from '@components/spinner/spinner';
-import {finalize} from 'rxjs';
+import {finalize, Subscription} from 'rxjs';
 import {SvgIconComponent} from 'angular-svg-icon';
+import {DialogRegistryService} from '@services/dialog-registry.service';
 
 @Component({
   selector: 'register-form',
@@ -35,7 +36,7 @@ import {SvgIconComponent} from 'angular-svg-icon';
   templateUrl: './register-form.html',
   styleUrl: './register-form.css'
 })
-export class RegisterForm {
+export class RegisterForm implements OnDestroy {
   @Output() goToLogIn = new EventEmitter()
   showError = signal(false)
   registrationSuccess: boolean = false
@@ -46,22 +47,40 @@ export class RegisterForm {
   passwordInputType: Extract<InputType, 'password' | 'text'> = 'password'
   passwordSvgFileName: 'eye' | 'eye-slash' = 'eye'
   loading: boolean = false
+  visibleSub: Subscription | undefined
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private drs: DialogRegistryService
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, passwordValidator]]
     })
+
+    this.visibleSub = this.drs.get('auth-form')?.visible$.subscribe(visible => {
+      if(!visible) {
+        this.form.reset()
+        this.form.get('password')?.setValue('')
+        this.showError.set(false)
+        this.firstSubmit = false
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.visibleSub?.unsubscribe()
   }
 
   onSignInEnterKeyDow() {
     this.goToLogIn.emit()
   }
 
-  getControl(controlName: string) {
+  getControl(controlName
+             :
+             string
+  ) {
     return getFormControl(this.form, controlName)
   }
 

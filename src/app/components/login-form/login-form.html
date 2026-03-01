@@ -1,62 +1,81 @@
-<vertical-spacing gap="2" items="center">
-  <h1 class="text-3xl leading-8 font-medium">
-    Log In
-  </h1>
+<div class="relative">
+  @if (loading) {
+    <div class="absolute inset-0 bg-white/40 flex justify-center items-center z-10">
+      <spinner/>
+    </div>
+  }
 
-  <p class="leading-5 text-gray-400">
-    Welcome back! Choose a login method below
-  </p>
-</vertical-spacing>
+  <vertical-spacing gap="2" items="center">
+    <h1 class="text-3xl leading-8 font-medium">
+      Log In
+    </h1>
 
-<div class="mt-7">
-  <oauth-button-group/>
-</div>
+    <p class="leading-5 text-gray-400">
+      Welcome back! Choose a login method below
+    </p>
+  </vertical-spacing>
+
+  <div class="mt-7">
+    <oauth-button-group/>
+  </div>
 
 
-<div class="mt-14 mb-4">
-  <divider-with-text
-    text="Or continue with email"
-  />
-</div>
+  <div class="mt-14 mb-4">
+    <vertical-spacing gap="5">
+      <alert
+        [message]="errorMessage"
+        type="ERROR"
+        [show]="showError"
+      />
 
-<vertical-spacing gap="5">
-  <app-input
-    label="E-mail"
-    type="email"
-    cdkFocusInitial
-    [control]="control"
-  />
+      <divider-with-text
+        text="Or continue with email"
+      />
+    </vertical-spacing>
+  </div>
 
-  <app-input
-    label="Password"
-    type="password"
-    [control]="control"
-  />
-</vertical-spacing>
-
-<div class="flex justify-end mt-2">
-  <reveal-underline
-    class="!font-normal text-sm"
-    text="Forgot Password?"
-    (keydown.enter)="onForgotPasswordEnterKeyDow()"
-    (click)="onForgotPasswordEnterKeyDow()"
-  />
-</div>
-
-<div class="mt-12">
-  <vertical-spacing gap="3" items="center">
-    <app-button
-      label="Sign In"
-      class="w-full"
+  <vertical-spacing gap="5">
+    <app-input
+      label="E-mail"
+      type="email"
+      cdkFocusInitial
+      [control]="getControl('email')"
     />
 
-    <div class="text-gray-500">
-      <span class="mr-1.5">No account ?</span>
-      <reveal-underline
-        text="Sign Up"
-        (keydown.enter)="onSignUpEnterKeyDow()"
-        (click)="onSignUpEnterKeyDow()"
-      />
-    </div>
+    <app-input
+      label="Password"
+      [type]="passwordInputType"
+      [control]="getControl('password')"
+      [svgFileName]="passwordSvgFileName"
+      [svgCb]="showPassword"
+    />
   </vertical-spacing>
+
+  <div class="flex justify-end mt-2">
+    <reveal-underline
+      class="!font-normal text-sm"
+      text="Forgot Password?"
+      (keydown.enter)="onForgotPasswordEnterKeyDow()"
+      (click)="onForgotPasswordEnterKeyDow()"
+    />
+  </div>
+
+  <div class="mt-12">
+    <vertical-spacing gap="3" items="center">
+      <app-button
+        label="Sign In"
+        class="w-full"
+        (click)="logIn()"
+      />
+
+      <div class="text-gray-500">
+        <span class="mr-1.5">No account ?</span>
+        <reveal-underline
+          text="Sign Up"
+          (keydown.enter)="onSignUpEnterKeyDow()"
+          (click)="onSignUpEnterKeyDow()"
+        />
+      </div>
+    </vertical-spacing>
+  </div>
 </div>
