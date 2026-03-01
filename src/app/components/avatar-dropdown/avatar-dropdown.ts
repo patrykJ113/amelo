@@ -3,6 +3,7 @@ import {DropDownMenu} from '@components/drop-down-menu/drop-down-menu';
 import {DropDownSubMenu} from '@components/drop-down-sub-menu/drop-down-sub-menu';
 import {MenuItem} from '@components/menu-item/menu-item';
 import {Avatar} from '@components/avatar/avatar';
+import {AuthService} from '@services/auth.service';
 
 @Component({
   selector: 'avatar-dropdown',
@@ -23,6 +24,9 @@ export class AvatarDropdown {
   @Input() initials: string = ''
   @ViewChild('dropdown', {read: ElementRef}) dropdown!: ElementRef
   open: WritableSignal<boolean> = signal(false)
+
+  constructor(private authService: AuthService) {
+  }
 
   onClick(e: PointerEvent) {
     const clickOutsideDropDown = !this.dropdown.nativeElement.contains(e.target)
@@ -46,6 +50,6 @@ export class AvatarDropdown {
   }
 
   logOut = () => {
-    console.log('logOut called!!!')
+    this.authService.logOut()
   }
 }
