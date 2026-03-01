@@ -14,6 +14,9 @@ import {InputType} from '@typings/input-type';
 import {Credentials} from '@typings/Credentials';
 import {Alert} from '@components/alert/alert';
 import {getErrorMessageForCode} from '@helpers/get-error-message-for-code';
+import {Spinner} from '@components/spinner/spinner';
+import {finalize} from 'rxjs';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
   selector: 'register-form',
@@ -25,7 +28,9 @@ import {getErrorMessageForCode} from '@helpers/get-error-message-for-code';
     AppButton,
     RevealUnderline,
     PasswordHints,
-    Alert
+    Alert,
+    Spinner,
+    SvgIconComponent
   ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.css'
@@ -33,12 +38,14 @@ import {getErrorMessageForCode} from '@helpers/get-error-message-for-code';
 export class RegisterForm {
   @Output() goToLogIn = new EventEmitter()
   showError = signal(false)
+  registrationSuccess: boolean = false
   errorMessage = ''
 
   firstSubmit: boolean = false
   form: FormGroup
   passwordInputType: Extract<InputType, 'password' | 'text'> = 'password'
   passwordSvgFileName: 'eye' | 'eye-slash' = 'eye'
+  loading: boolean = false
 
   constructor(
     private authService: AuthService,
@@ -70,15 +77,28 @@ export class RegisterForm {
       password: this.form.get('password')?.value
     }
 
-    this.authService.register(credentials).subscribe({
-      next: () => {},
-      error: err => {
-        this.errorMessage = getErrorMessageForCode(err.error.code)
-        this.showError.set(true)
-        this.getControl('email').setErrors({ emailTaken: true })
-        console.log(err)
-      }
-    })
+    this.showLoader()
+    this.authService.register(credentials)
+      .pipe(finalize(() => this.hideLoader()))
+      .subscribe({
+        next: () => {
+          this.registrationSuccess = true
+        },
+        error: err => {
+          this.errorMessage = getErrorMessageForCode(err.error.code)
+          this.showError.set(true)
+          this.getControl('email').setErrors({emailTaken: true})
+          console.log(err)
+        }
+      })
+  }
+
+  showLoader() {
+    this.loading = true
+  }
+
+  hideLoader() {
+    this.loading = false
   }
 
   showPassword = () => {

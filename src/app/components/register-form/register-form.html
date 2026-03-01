@@ -1,72 +1,110 @@
-<vertical-spacing gap="1" items="center">
-  <h1 class="text-3xl leading-8 font-medium">
-    Create Account
-  </h1>
-
-  <p class="leading-5 text-gray-400">
-    Register with your social account
-  </p>
-</vertical-spacing>
-
-<div class="mt-7">
-  <oauth-button-group/>
-</div>
-
-<div class="mt-12">
-  <vertical-spacing gap="5">
-    <alert
-      [message]="errorMessage"
-      type="ERROR"
-      [show]="showError"
+@if (registrationSuccess) {
+  <vertical-spacing
+    items="center"
+    gap="5"
+  >
+    <svg-icon
+      src="success.svg"
+      class="inline-flex size-20 text-emerald-500 mb-6"
     />
 
-    <div class="mb-4">
-      <divider-with-text
-        text="Or with you’re email"
-      />
+    <h1 class="text-3xl leading-8 font-medium">
+      Congratulation
+    </h1>
+
+    <div class="text-gray-400 text-center">
+      Registration successful! Please
+      <div class="font-medium inline">
+        <span class="mr-1.5">Go to</span>
+        <reveal-underline
+          text="Sign In"
+          (keydown.enter)="onSignInEnterKeyDow()"
+          (click)="onSignInEnterKeyDow()"
+        />
+      </div>
+      page to Log in.
     </div>
+
   </vertical-spacing>
-</div>
+} @else {
+  <div class="relative">
+    @if (loading) {
+      <div class="absolute inset-0 bg-white/40 flex justify-center items-center z-10">
+        <spinner/>
+      </div>
+    }
 
-<vertical-spacing gap="5">
-  <app-input
-    label="E-mail"
-    type="email"
-    cdkFocusInitial
-    svgFileName="at-symbol"
-    [control]="getControl('email')"
-  />
+    <vertical-spacing gap="1" items="center">
+      <h1 class="text-3xl leading-8 font-medium">
+        Create Account
+      </h1>
 
-  <app-input
-    label="Password"
-    [svgFileName]="passwordSvgFileName"
-    [type]="passwordInputType"
-    [svgCb]="showPassword"
-    [control]="getControl('password')"
-  />
+      <p class="leading-5 text-gray-400">
+        Register with your social account
+      </p>
+    </vertical-spacing>
 
-  <password-hints
-    [password]="getControl('password').value"
-    [firstSubmit]="firstSubmit"
-  />
-
-</vertical-spacing>
-
-<div class="mt-12">
-  <vertical-spacing gap="3" items="center">
-    <app-button
-      label="Sign Up"
-      class="w-full"
-      (click)="register()"
-    />
-
-    <div class="text-gray-500">
-      <span class="mr-1.5">Have an account ?</span>
-      <reveal-underline
-        text="Sign In"
-        (keydown.enter)="onSignInEnterKeyDow()"
-        (click)="onSignInEnterKeyDow()"
-      />
+    <div class="mt-7">
+      <oauth-button-group/>
     </div>
-  </vertical-spacing>
-</div>
+
+    <div class="mt-12">
+      <vertical-spacing gap="5">
+        <alert
+          [message]="errorMessage"
+          type="ERROR"
+          [show]="showError"
+        />
+
+        <div class="mb-4">
+          <divider-with-text
+            text="Or with you’re email"
+          />
+        </div>
+      </vertical-spacing>
+    </div>
+
+    <vertical-spacing gap="5">
+      <app-input
+        label="E-mail"
+        type="email"
+        cdkFocusInitial
+        svgFileName="at-symbol"
+        [control]="getControl('email')"
+      />
+
+      <app-input
+        label="Password"
+        [svgFileName]="passwordSvgFileName"
+        [type]="passwordInputType"
+        [svgCb]="showPassword"
+        [control]="getControl('password')"
+      />
+
+      <password-hints
+        [password]="getControl('password').value"
+        [firstSubmit]="firstSubmit"
+      />
+
+    </vertical-spacing>
+
+    <div class="mt-12">
+      <vertical-spacing gap="3" items="center">
+        <app-button
+          label="Sign Up"
+          class="w-full"
+          (click)="register()"
+        />
+
+        <div class="text-gray-500">
+          <span class="mr-1.5">Have an account ?</span>
+          <reveal-underline
+            text="Sign In"
+            (keydown.enter)="onSignInEnterKeyDow()"
+            (click)="onSignInEnterKeyDow()"
+          />
+        </div>
+      </vertical-spacing>
+    </div>
+  </div>
+}
