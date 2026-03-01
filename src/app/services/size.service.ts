@@ -13,6 +13,10 @@ export class SizeService {
     return size === 'sm';
   }
 
+  isBase(size: Size) {
+    return size === 'base';
+  }
+
   isMd(size: Size) {
     return size === 'md';
   }
