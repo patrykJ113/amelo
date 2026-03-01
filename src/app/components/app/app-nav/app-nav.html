@@ -15,8 +15,24 @@
   </div>
 
   <div class="col-span-4 flex justify-end">
-    <avatar-dropdown
-      initials="PJ"
-    />
+    @if (isLoggedIn) {
+      <avatar-dropdown
+        initials="PJ"
+      />
+    } @else {
+      <horizontal-spacing gap="2">
+        <app-button
+          label="Register"
+          variant="Text"
+          (click)="openRegisterDialog()"
+        />
+
+        <app-button
+          label="Log In"
+          variant="Primary"
+          (click)="openLoginDialog()"
+        />
+      </horizontal-spacing>
+    }
   </div>
 </nav>

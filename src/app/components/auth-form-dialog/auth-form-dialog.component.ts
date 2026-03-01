@@ -3,13 +3,15 @@ import {
   Input,
   ViewChild,
   ElementRef,
-  OnDestroy
+  OnDestroy, OnInit
 } from '@angular/core';
 import {DialogBuilder} from '@components/dialog-builder/dialog-builder.component';
 import {RegisterForm} from '@components/register-form/register-form';
 import {LoginForm} from '@components/login-form/login-form';
 import {ResetPasswordForm} from '@components/reset-password-form/reset-password-form';
 import {AuthFormVariant} from '@typings/auth-form-variant';
+import {AuthFormService} from '@services/auth-form.service';
+import {Subscription} from 'rxjs';
 
 const LEAVE_ANIMATION_CLASS = 'leave-animation';
 
@@ -19,11 +21,20 @@ const LEAVE_ANIMATION_CLASS = 'leave-animation';
   templateUrl: './auth-form-dialog.component.html',
   styleUrl: './auth-form-dialog.component.css'
 })
-export class AuthFormDialog implements OnDestroy {
-  @Input() shownForm: AuthFormVariant = 'LOG_IN';
-
+export class AuthFormDialog implements OnDestroy, OnInit {
+  shownForm: AuthFormVariant = 'LOG_IN';
+  private variantSub!: Subscription;
   @ViewChild('login', {read: ElementRef}) loginForm?: ElementRef<HTMLElement>;
   @ViewChild('register', {read: ElementRef}) registerForm?: ElementRef<HTMLElement>;
+
+  constructor(private authFormService: AuthFormService) {
+  }
+
+  ngOnInit() {
+    this.variantSub = this.authFormService.$variantChange.subscribe(variant => {
+      this.shownForm = variant
+    })
+  }
 
   private activeAnimationEl?: HTMLElement;
 
@@ -81,5 +92,6 @@ export class AuthFormDialog implements OnDestroy {
 
   ngOnDestroy(): void {
     this.cleanupAnimation();
+    this.variantSub.unsubscribe()
   }
 }
