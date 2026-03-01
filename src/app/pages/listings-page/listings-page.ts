@@ -7,8 +7,6 @@ import {Loading} from '@components/loading/loading';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {RequestStatus} from '@typings/request-status';
-import {AppButton} from '@components/app/app-button/app-button';
-import {DialogRegistryService} from '@services/dialog-registry.service';
 import {AuthFormDialog} from '@components/auth-form-dialog/auth-form-dialog.component';
 
 @Component({
@@ -19,7 +17,6 @@ import {AuthFormDialog} from '@components/auth-form-dialog/auth-form-dialog.comp
     Loading,
     SvgIconComponent,
     VerticalSpacing,
-    AppButton,
     AuthFormDialog,
   ],
   templateUrl: './listings-page.html',
@@ -31,7 +28,6 @@ export class ListingsPage implements OnInit {
   loading: boolean = false
   constructor(
     private listingService: ListingService,
-    private drs: DialogRegistryService
   ) {
   }
 
@@ -54,10 +50,6 @@ export class ListingsPage implements OnInit {
     })
   }
 
-  openAuthForm() {
-    this.drs.get('auth-form')?.open()
-  }
-
   get errorOccurred() {
     return this.requestStatus === 'Error'
   }
@@ -68,10 +60,5 @@ export class ListingsPage implements OnInit {
 
   hideLoader() {
     this.loading = false
-  }
-
-  showBox: boolean = false
-  toggleBox() {
-    this.showBox = !this.showBox
   }
 }
