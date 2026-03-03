@@ -1,15 +1,4 @@
 <div class="p-5 relative">
-  @if (errorOccurred) {
-    <div class="mb-6">
-      <alert
-        #alert
-        variant="Error"
-      >
-        <p>Failed to create listing. There was a problem with the server. Please try again later</p>
-      </alert>
-    </div>
-  }
-
   @if (loading) {
     <loading/>
   }

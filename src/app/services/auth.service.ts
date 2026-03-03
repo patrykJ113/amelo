@@ -4,6 +4,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Credentials} from '@typings/Credentials';
 import {Observable} from 'rxjs';
 import {jwtDecode} from 'jwt-decode';
+import {AmelloJwtPayload} from '@typings/amello-jwt-payload';
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +30,25 @@ export class AuthService {
     const token = this.getToken()
 
     if(token) {
-      const decoded = jwtDecode(token)
-      if(!decoded.exp) return false
-      const expiresAt = decoded.exp;
-      const now = Date.now()
-      return expiresAt < now
+      const decoded = jwtDecode<AmelloJwtPayload>(token)
+      return this.isTokenExpired(decoded)
     }
     return false
+  }
+
+  isTokenExpired(decodedToken: AmelloJwtPayload) {
+    if(!decodedToken.exp) return false
+    const expiresAt = decodedToken.exp;
+    const now = Date.now()
+    return expiresAt < now
+  }
+
+  getUserIdFromToken(): string | undefined {
+    const token = this.getToken()
+    if(!token) return undefined
+
+    const decoded = jwtDecode<AmelloJwtPayload>(token)
+    return decoded.userId
   }
 
   private unsetToken() {

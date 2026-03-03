@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AppButton} from '@components/app/app-button/app-button';
 import {ListingForm} from '@components/listing/listing-form/listing-form';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
@@ -8,7 +8,7 @@ import {ListingService} from '@services/listing.service';
 import {Loading} from '@components/loading/loading';
 import {Router} from '@angular/router';
 import {RequestStatus} from '@typings/request-status';
-import {Alert} from '@components/alert/alert.component';
+import {AuthService} from '@services/auth.service';
 
 @Component({
   selector: 'add-listing-page',
@@ -18,29 +18,26 @@ import {Alert} from '@components/alert/alert.component';
     VerticalSpacing,
     HorizontalSpacing,
     Loading,
-    Alert,
   ],
   templateUrl: './add-listing-page.html',
   styleUrl: './add-listing-page.css'
 })
-export class AddListingPage implements AfterViewChecked {
+export class AddListingPage implements OnInit {
   requestStatus: RequestStatus = 'Not Sent'
   loading: boolean = false
+  usserId: string | undefined
   @ViewChild(ListingForm) listingForm!: ListingForm
   @ViewChild('alert', { read: ElementRef }) alert!: ElementRef
 
   constructor(
     private listingService: ListingService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
   }
 
-  ngAfterViewChecked() {
-    if(this.errorOccurred && this.alert) {
-      const top = this.alert.nativeElement.getBoundingClientRect().top + window.scrollY;
-      const offset = 150;
-      window.scrollTo({ top: top - offset, behavior: 'smooth' });
-    }
+  ngOnInit() {
+    this.usserId = this.authService.getUserIdFromToken()
   }
 
   createListing() {
@@ -56,7 +53,9 @@ export class AddListingPage implements AfterViewChecked {
       category_id: category_object.id
     }
 
-    this.listingService.create(newListing, files).subscribe({
+    if(!this.usserId) return;
+
+    this.listingService.create(newListing, files, this.usserId).subscribe({
       next: listing => {
         setTimeout(() => {
           this.listingForm.form?.reset()
@@ -71,10 +70,6 @@ export class AddListingPage implements AfterViewChecked {
         this.hideLoader()
       }
     })
-  }
-
-  get errorOccurred() {
-    return this.requestStatus === 'Error'
   }
 
   showLoader() {
