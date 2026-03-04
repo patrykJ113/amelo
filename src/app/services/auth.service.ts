@@ -11,11 +11,8 @@ import {AmelloJwtPayload} from '@typings/amello-jwt-payload';
 })
 export class AuthService {
   private authApiUrl: string = `${environment.apiUrl}/auth`
-  private token: string
 
   constructor(private http: HttpClient) {
-    const tokenInLs = localStorage.getItem(this.localStorageJwtKey)
-    this.token = tokenInLs ? tokenInLs : ''
   }
 
   setToken(jwt: string) {
@@ -28,19 +25,20 @@ export class AuthService {
 
   isLoggedIn() {
     const token = this.getToken()
-
-    if(token) {
-      const decoded = jwtDecode<AmelloJwtPayload>(token)
-      return this.isTokenExpired(decoded)
-    }
-    return false
+    return token ? this.isTokenExpired(token) : false
   }
 
-  isTokenExpired(decodedToken: AmelloJwtPayload) {
-    if(!decodedToken.exp) return false
-    const expiresAt = decodedToken.exp;
+  isTokenExpired(token: string) {
+    const decoded = jwtDecode<AmelloJwtPayload>(token)
+    if(!decoded.exp) {
+      this.unsetToken()
+      return false
+    }
+    const expiresAt = decoded.exp;
     const now = Date.now()
-    return expiresAt < now
+    const valid = expiresAt < now
+    if(!valid) this.unsetToken()
+    return valid
   }
 
   getUserIdFromToken(): string | undefined {
