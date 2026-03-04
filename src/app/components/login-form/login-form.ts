@@ -70,6 +70,19 @@ export class LoginForm implements OnDestroy {
   }
 
   logIn() {
+
+    if (this.form.invalid) {
+      const password = this.getControl('password')
+      const email = this.getControl('email')
+
+      password.markAsTouched()
+      email.markAsTouched()
+
+      this.showError.set(true)
+      this.errorMessage = 'Can submit the form when fields are invalid'
+      return
+    }
+
     const credentials: Credentials = {
       email: this.form.get('email')?.value,
       password: this.form.get('password')?.value
