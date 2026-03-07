@@ -34,7 +34,7 @@ export class ListingService {
       files.forEach(file => formData.append('files', file))
     }
 
-    return this.http.post<Listing>(`${this.apiUrl}/userr/${userId}`, formData)
+    return this.http.post<Listing>(`${this.apiUrl}/user/${userId}`, formData)
   }
 
   update(id: string, listing: ListingRequestBody): Observable<Listing> {
