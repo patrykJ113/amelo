@@ -1,14 +1,16 @@
 <button
-  class="rounded-full transition-all duration-200 outline-none  border-2 font-medium group"
+  class="rounded-full transition-all duration-200 outline-none  border-2 font-medium group relative"
   [ngClass]="{
     'focus-visible:ring-4 focus-visible:ring-blue-500/30': showRingOnFocusVisible,
     'cursor-pointer': hasCursorPointer,
     'text-blue-500': hasBlueText,
     'border-transparent': hasTransparentBorder || isDisabledText,
-    'border-blue-500 bg-blue-500 text-white hover:bg-blue-400 hover:border-blue-400 active:bg-blue-700 active:border-blue-700': isPrimary,
+    'border-blue-500 bg-blue-500 text-white hover:bg-blue-400 active:bg-blue-700': isPrimary,
+    'hover:border-blue-400 active:border-blue-700': borderBlue400OnHover,
     'active:bg-blue-100/60': isOutline,
     'hover:border-blue-100 active:border-blue-200 hover:bg-blue-100 focus-visible:bg-blue-100 active:bg-blue-200': isText,
-    'cursor-not-allowed text-gray-400 border-gray-200': disabled,
+    'text-gray-400 border-gray-200': disabled ,
+    '!cursor-not-allowed': cursorNotAllowed,
     'bg-gray-200': isDisabledPrimary,
     'px-6 py-3': isBase,
     'px-4 py-2': isSm,
@@ -25,4 +27,13 @@
   >
     {{ label }}
   </span>
+
+  @if (loading) {
+    <div class="absolute inset-0 bg-blue-500 rounded-full flex justify-center items-center">
+      <spinner
+        color="WHITE"
+        size="xs"
+      />
+    </div>
+  }
 </button>

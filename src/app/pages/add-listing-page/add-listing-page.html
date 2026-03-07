@@ -1,15 +1,12 @@
-<div class="p-5 relative">
-  @if (loading) {
-    <loading/>
-  }
-
+<div class="p-5">
   <vertical-spacing gap="6">
     <listing-form/>
 
     <horizontal-spacing justify="end">
       <app-button
-        [disabled]="isFormInValid"
         (click)="createListing()"
+        [loading]="loading"
+        [disabled]="isFormInValid"
         label="Create Listing"
       />
     </horizontal-spacing>

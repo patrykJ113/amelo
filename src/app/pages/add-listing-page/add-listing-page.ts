@@ -5,7 +5,6 @@ import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical
 import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/horizontal-spacing';
 import {ListingRequestBody} from '@typings/listing';
 import {ListingService} from '@services/listing.service';
-import {Loading} from '@components/loading/loading';
 import {Router} from '@angular/router';
 import {RequestStatus} from '@typings/request-status';
 import {AuthService} from '@services/auth.service';
@@ -17,7 +16,6 @@ import {AuthService} from '@services/auth.service';
     ListingForm,
     VerticalSpacing,
     HorizontalSpacing,
-    Loading,
   ],
   templateUrl: './add-listing-page.html',
   styleUrl: './add-listing-page.css'
@@ -41,7 +39,7 @@ export class AddListingPage implements OnInit {
   }
 
   createListing() {
-    if (!this.listingForm.form) return
+    if (!this.listingForm.form || this.loading) return
 
     this.showLoader()
     const {title, description, price, category_object, files} = this.listingForm.form.value

@@ -3,11 +3,13 @@ import {NgClass} from '@angular/common';
 import {ButtonVariant} from '@typings/button-variant';
 import {Size} from '@typings/size';
 import {SizeService} from '@services/size.service';
+import {Spinner} from '@components/spinner/spinner';
 
 @Component({
   selector: 'app-button',
   imports: [
-    NgClass
+    NgClass,
+    Spinner
   ],
   templateUrl: './app-button.html',
   styleUrl: './app-button.css'
@@ -19,6 +21,7 @@ export class AppButton {
   @Input() variant: ButtonVariant = 'Primary'
   @Input() class: string = ''
   @Input() size: Size = 'base'
+  @Input() loading: boolean = false
 
   constructor(private sizeService: SizeService) {
   }
@@ -73,6 +76,14 @@ export class AppButton {
 
   get isSm() {
     return this.sizeService.isSm(this.size)
+  }
+
+  get cursorNotAllowed() {
+    return this.disabled || this.loading
+  }
+
+  get borderBlue400OnHover() {
+    return this.isPrimary && !this.loading
   }
 
   get isEnabled() {
