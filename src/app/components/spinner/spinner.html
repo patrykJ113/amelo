@@ -1,4 +1,16 @@
-<div class="loader size-12 rounded-full relative animate-spin
-            before:content-[''] before:absolute before:inset-0 before:rounded-full before:border-[5px] before:border-blue-500 animate-progress-animation"
+<div class="loader rounded-full relative animate-spin
+            before:content-[''] before:absolute before:inset-0 before:rounded-full animate-progress-animation"
+     [ngClass]="{
+        'before:border-blue-500': isSpinnerBlue,
+        'before:border-white': isSpinnerWhite,
+        'size-6': sizeService.isXs(size),
+        'size-8': sizeService.isSm(size),
+        'size-12': sizeService.isBase(size),
+        'size-14': sizeService.isMd(size),
+        'size-16': sizeService.isLg(size),
+        'size-20': sizeService.isXl(size),
+        'before:border-[5px]': has5pxBorder,
+        'before:border-[3px]': has3pxBorder
+     }"
 ></div>
 
