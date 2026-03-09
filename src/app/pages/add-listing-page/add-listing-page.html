@@ -2,19 +2,10 @@
   <listing-form/>
 
   <horizontal-spacing justify="end">
-    <tooltip
-      title="Listing can not be created"
-      description="This button is not clickable because you did not filed out all the required fields above."
-      variant="Warning"
-      [showTooltip]="isFormInValid"
-    >
-      <app-button
-        trigger
-        (click)="createListing()"
-        [loading]="loading"
-        [disabled]="isFormInValid"
-        label="Create Listing"
-      />
-    </tooltip>
+    <add-listing-button
+      [loading]="loading"
+      [disabled]="isFormInValid"
+      (click)="createListing()"
+    />
   </horizontal-spacing>
 </vertical-spacing>

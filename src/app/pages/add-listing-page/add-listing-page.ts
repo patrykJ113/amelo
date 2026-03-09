@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {RequestStatus} from '@typings/request-status';
 import {AuthService} from '@services/auth.service';
 import {Tooltip} from '@components/show-on-hover/tooltip.component';
+import {AddListingButton} from '@components/add-listing-button/add-listing-button';
 
 @Component({
   selector: 'add-listing-page',
@@ -18,6 +19,7 @@ import {Tooltip} from '@components/show-on-hover/tooltip.component';
     VerticalSpacing,
     HorizontalSpacing,
     Tooltip,
+    AddListingButton,
   ],
   templateUrl: './add-listing-page.html',
   styleUrl: './add-listing-page.css'
