@@ -1,14 +1,20 @@
-<div class="p-5">
-  <vertical-spacing gap="6">
-    <listing-form/>
+<vertical-spacing gap="6">
+  <listing-form/>
 
-    <horizontal-spacing justify="end">
+  <horizontal-spacing justify="end">
+    <tooltip
+      title="Listing can not be created"
+      description="This button is not clickable because you did not filed out all the required fields above."
+      variant="Warning"
+      [showTooltip]="isFormInValid"
+    >
       <app-button
+        trigger
         (click)="createListing()"
         [loading]="loading"
         [disabled]="isFormInValid"
         label="Create Listing"
       />
-    </horizontal-spacing>
-  </vertical-spacing>
-</div>
+    </tooltip>
+  </horizontal-spacing>
+</vertical-spacing>

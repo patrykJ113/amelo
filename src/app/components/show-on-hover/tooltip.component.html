@@ -1,0 +1,68 @@
+<div class="relative group">
+  @if (showTooltip) {
+    <div
+      #tooltip
+      class="absolute opacity-0 pointer-events-none group-hover:opacity-100 translate-y-4
+              group-hover:pointer-events-auto group-hover:translate-y-0 min-w-full transition-all duration-200 z-20"
+      [ngStyle]="tooltipPosition"
+    >
+      <div
+        class="relative bg-white rounded-xl p-4 pr-6 min-w-max border-l-4 ring-1 ring-gray-200 shadow-lg"
+        [ngClass]="{
+                'border-l-blue-500': isInfo,
+                'border-l-red-500': isError,
+                'border-l-emerald-500': isSuccess,
+                'border-l-amber-500': isWarning,
+              }"
+      >
+        <vertical-spacing gap="5">
+          <horizontal-spacing
+            justify="start"
+            items="center"
+            gap="2"
+          >
+            <div
+              class="rounded-full p-2 flex justify-center items-center border border-gray-100"
+              [ngClass]="{
+                'bg-blue-50': isInfo,
+                'bg-red-50': isError,
+                'bg-emerald-50': isSuccess,
+                'bg-amber-50': isWarning,
+              }"
+            >
+              <svg-icon
+                [src]="src"
+                class="inline-flex size-5"
+                [ngClass]="{
+                'text-blue-500': isInfo,
+                'text-red-600': isError,
+                'text-emerald-500': isSuccess,
+                'text-amber-600': isWarning,
+              }"
+              />
+            </div>
+
+            <h1 class="text-gray-500 font-medium">
+              {{ title }}
+            </h1>
+          </horizontal-spacing>
+
+          <ng-content select="[description]"/>
+          <p class="text-gray-400/80 text-sm w-[250px]">
+            {{ description }}
+          </p>
+        </vertical-spacing>
+      </div>
+
+      <div
+        #triangle
+        class="absolute bg-white size-5 rounded-tl-full border-b border-r border-gray-200"
+        [ngStyle]="triangleStyle"
+      ></div>
+    </div>
+  }
+
+  <div #trigger>
+    <ng-content select="[trigger]"/>
+  </div>
+</div>

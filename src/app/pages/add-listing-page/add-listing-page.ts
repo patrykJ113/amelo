@@ -8,6 +8,7 @@ import {ListingService} from '@services/listing.service';
 import {Router} from '@angular/router';
 import {RequestStatus} from '@typings/request-status';
 import {AuthService} from '@services/auth.service';
+import {Tooltip} from '@components/show-on-hover/tooltip.component';
 
 @Component({
   selector: 'add-listing-page',
@@ -16,6 +17,7 @@ import {AuthService} from '@services/auth.service';
     ListingForm,
     VerticalSpacing,
     HorizontalSpacing,
+    Tooltip,
   ],
   templateUrl: './add-listing-page.html',
   styleUrl: './add-listing-page.css'
@@ -23,7 +25,7 @@ import {AuthService} from '@services/auth.service';
 export class AddListingPage implements OnInit {
   requestStatus: RequestStatus = 'Not Sent'
   loading: boolean = false
-  usserId: string | undefined
+  userId: string | undefined
   @ViewChild(ListingForm) listingForm!: ListingForm
   @ViewChild('alert', { read: ElementRef }) alert!: ElementRef
 
@@ -35,7 +37,7 @@ export class AddListingPage implements OnInit {
   }
 
   ngOnInit() {
-    this.usserId = this.authService.getUserIdFromToken()
+    this.userId = this.authService.getUserIdFromToken()
   }
 
   createListing() {
@@ -51,9 +53,9 @@ export class AddListingPage implements OnInit {
       category_id: category_object.id
     }
 
-    if(!this.usserId) return;
+    if(!this.userId) return;
 
-    this.listingService.create(newListing, files, this.usserId).subscribe({
+    this.listingService.create(newListing, files, this.userId).subscribe({
       next: listing => {
         setTimeout(() => {
           this.listingForm.form?.reset()
