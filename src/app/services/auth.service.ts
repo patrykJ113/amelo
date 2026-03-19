@@ -34,9 +34,10 @@ export class AuthService {
       this.unsetToken()
       return false
     }
-    const expiresAt = decoded.exp;
+
+    const expiresAt = decoded.exp * 1000;
     const now = Date.now()
-    const valid = expiresAt < now
+    const valid = expiresAt > now
     if(!valid) this.unsetToken()
     return valid
   }
