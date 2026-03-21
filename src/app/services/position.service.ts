@@ -18,7 +18,7 @@ export class PositionService {
       top: bcr.top,
       bottom: bcr.bottom,
       left: bcr.left,
-      right: bcr.right,
+      right: `${bcr.right - this.viewportSize.width}`,
       width: bcr.width,
       height: bcr.height,
     }

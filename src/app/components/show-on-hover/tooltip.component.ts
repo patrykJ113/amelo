@@ -93,20 +93,20 @@ export class Tooltip implements AfterViewInit {
     const triangle = 9.5;
 
     const showTop = tooltip.height + offset + triangle + 20 <= trigger.top;
-    const showLeft = tooltip.width > trigger.left;
+    const showLeft = tooltip.width < trigger.left;
 
     const triangleOffset = `calc(${tooltip.height}px - 9.5px)`;
     const triggerCenter = `${(Number(trigger.width) / 2) - 4}px`;
 
     this.tooltipPosition.top = showTop ? null : `calc(100% + ${offset}px)`;
     this.tooltipPosition.bottom = showTop ? `calc(100% + ${offset}px)` : null;
-    this.tooltipPosition.left = showLeft ? '0px' : null;
-    this.tooltipPosition.right = showLeft ? null : '0px';
+    this.tooltipPosition.left = showLeft ? null : '0px';
+    this.tooltipPosition.right = showLeft ? '0px' : null;
 
     this.triangleStyle.transform = `rotate(${showTop ? 45 : -135}deg)`;
     this.triangleStyle.top = showTop ? triangleOffset : null;
     this.triangleStyle.bottom = showTop ? null : triangleOffset;
-    this.triangleStyle.left = showLeft ? triggerCenter : null;
-    this.triangleStyle.right = showLeft ? null : triggerCenter;
+    this.triangleStyle.left = showLeft ? null : triggerCenter;
+    this.triangleStyle.right = showLeft ? triggerCenter : null;
   }
 }

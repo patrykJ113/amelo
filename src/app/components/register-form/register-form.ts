@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, Output, signal} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, Output, signal} from '@angular/core';
 import {DividerWithText} from '@components/divider-with-text/divider-with-text';
 import {OauthButtonGroup} from '@components/oauth-button-group/oauth-button-group';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
@@ -38,6 +38,7 @@ import {DialogRegistryService} from '@services/dialog-registry.service';
 })
 export class RegisterForm implements OnDestroy {
   @Output() goToLogIn = new EventEmitter()
+  @Input() container: ElementRef | undefined
   showError = signal(false)
   registrationSuccess: boolean = false
   errorMessage = ''

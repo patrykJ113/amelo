@@ -1,12 +1,16 @@
 import {Component, Input} from '@angular/core';
 import {PasswordHint} from '@components/password-hint/password-hint';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
+import {Tooltip} from '@components/show-on-hover/tooltip.component';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
   selector: 'password-hints',
   imports: [
     PasswordHint,
-    VerticalSpacing
+    VerticalSpacing,
+    Tooltip,
+    SvgIconComponent,
   ],
   templateUrl: './password-hints.html',
   styleUrl: './password-hints.css'
