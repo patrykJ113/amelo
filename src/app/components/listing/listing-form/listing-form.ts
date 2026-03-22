@@ -6,7 +6,6 @@ import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} fr
 import {DropdownOption} from '@typings/dropdown-option';
 import {optionExistsValidator} from '@validators/option-exists';
 import {CategoryService} from '@services/category.service';
-import {Loading} from '@components/loading/loading';
 import {Panel} from '@components/panel/panel';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {ImagePicker} from '@components/image/image-picker/image-picker';
@@ -18,7 +17,6 @@ import {getFormControl} from '@helpers/get-form-control';
     AppInput,
     AppTextarea,
     Combobox,
-    Loading,
     ReactiveFormsModule,
     Panel,
     VerticalSpacing,
