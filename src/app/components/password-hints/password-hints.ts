@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, Input} from '@angular/core';
 import {PasswordHint} from '@components/password-hint/password-hint';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {Tooltip} from '@components/show-on-hover/tooltip.component';
@@ -18,6 +18,12 @@ import {SvgIconComponent} from 'angular-svg-icon';
 export class PasswordHints {
   @Input() password: string = ''
   @Input() firstSubmit: boolean = false
+
+  constructor(private elementRef: ElementRef) {}
+
+  get nativeEl(): HTMLElement {
+    return this.elementRef.nativeElement
+  }
 
   get hasCorrectLength() {
     return this.password.length >= 8 && this.password.length <= 20

@@ -43,6 +43,7 @@ export class Tooltip implements AfterViewInit {
   @Input() description: string = ''
   @Input() variant: Variant = 'Info'
   @Input() showTooltip: boolean = true
+  @Input() constrainTo?: HTMLElement
   @ViewChild('tooltip') tooltip!: ElementRef
   @ViewChild('trigger') trigger!: ElementRef
   @ViewChild('triangle') triangle!: ElementRef
@@ -102,11 +103,43 @@ export class Tooltip implements AfterViewInit {
     this.tooltipPosition.bottom = showTop ? `calc(100% + ${offset}px)` : null;
     this.tooltipPosition.left = showLeft ? null : '0px';
     this.tooltipPosition.right = showLeft ? '0px' : null;
+    this.tooltipPosition.width = null;
 
     this.triangleStyle.transform = `rotate(${showTop ? 45 : -135}deg)`;
     this.triangleStyle.top = showTop ? triangleOffset : null;
     this.triangleStyle.bottom = showTop ? null : triangleOffset;
     this.triangleStyle.left = showLeft ? null : triggerCenter;
     this.triangleStyle.right = showLeft ? triggerCenter : null;
+
+    if (this.constrainTo) {
+      const padding = 16;
+      const containerRect = this.constrainTo.getBoundingClientRect();
+      const triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+      const tooltipRect = this.tooltip.nativeElement.getBoundingClientRect();
+
+      const fitsLeftAligned = triggerRect.left + tooltipRect.width <= containerRect.right;
+      const fitsRightAligned = triggerRect.right - tooltipRect.width >= containerRect.left;
+
+      if (!fitsLeftAligned && fitsRightAligned) {
+        // Switch to right-aligned, fits within container
+        this.tooltipPosition.left = null;
+        this.tooltipPosition.right = '0px';
+        this.tooltipPosition.width = null;
+        this.triangleStyle.left = null;
+        this.triangleStyle.right = triggerCenter;
+      } else if (!fitsLeftAligned && !fitsRightAligned) {
+        // Neither side fits — stretch to fill container minus padding
+        const constrainedWidth = containerRect.width - padding * 2;
+        const leftFromTrigger = containerRect.left - triggerRect.left + padding;
+        // Triangle centered on trigger relative to new tooltip left edge
+        const triangleLeft = triggerRect.left + triggerRect.width / 2 - 4 - containerRect.left - padding;
+
+        this.tooltipPosition.left = `${leftFromTrigger}px`;
+        this.tooltipPosition.right = null;
+        this.tooltipPosition.width = `${constrainedWidth}px`;
+        this.triangleStyle.left = `${triangleLeft}px`;
+        this.triangleStyle.right = null;
+      }
+    }
   }
 }

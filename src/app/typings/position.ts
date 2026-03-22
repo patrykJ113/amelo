@@ -5,6 +5,7 @@ export type Position = {
   right: StringOrNull
   top: StringOrNull
   bottom: StringOrNull
+  width?: StringOrNull
 }
 
 export type BoundingClientRect = {
