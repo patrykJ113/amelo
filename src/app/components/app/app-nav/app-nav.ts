@@ -4,9 +4,8 @@ import {Logo} from '@components/logo/logo';
 import {AvatarDropdown} from '@components/avatar-dropdown/avatar-dropdown';
 import {AppButton} from '@components/app/app-button/app-button';
 import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/horizontal-spacing';
-import {DialogRegistryService} from '@services/dialog-registry.service';
 import {AuthService} from '@services/auth.service';
-import {AuthFormService} from '@services/auth-form.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -22,20 +21,17 @@ import {AuthFormService} from '@services/auth-form.service';
 })
 export class AppNav {
   constructor(
-    private drs: DialogRegistryService,
     private authService: AuthService,
-    private authFormService: AuthFormService
+    private router: Router
   ) {
   }
 
-  openLoginDialog() {
-    this.authFormService.set('LOG_IN')
-    this.drs.get('auth-form')?.open()
+  goToLogin() {
+    this.router.navigate(['/auth/login'])
   }
 
-  openRegisterDialog() {
-    this.authFormService.set('REGISTER')
-    this.drs.get('auth-form')?.open()
+  goToRegister() {
+    this.router.navigate(['/auth/register'])
   }
 
   get isLoggedIn() {
