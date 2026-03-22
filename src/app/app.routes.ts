@@ -7,6 +7,7 @@ import {NotFound} from '@components/not-found/not-found';
 import {AccountSettingsPage} from '@pages/account-settings-page/account-settings-page';
 import {AuthGuard} from '@guards/auth-guard';
 import {LoginPage} from '@pages/login-page/login-page';
+import {RegisterPage} from '@pages/register-page/register-page';
 
 export const routes: Routes = [
   {
@@ -57,10 +58,10 @@ export const routes: Routes = [
             path: 'login',
             component: LoginPage
           },
-          // {
-          //   path: 'register',
-          //   component:
-          // }
+          {
+            path: 'register',
+            component: RegisterPage
+          }
         ]
       },
       {
