@@ -1,5 +1,5 @@
 <button
-  class="rounded-full transition-all duration-200 outline-none  border-2 font-medium group relative"
+  class="rounded-full transition-all duration-200 outline-none border-2 text-sm font-medium group relative"
   [ngClass]="{
     'focus-visible:ring-4 focus-visible:ring-blue-500/30': showRingOnFocusVisible,
     'cursor-pointer': hasCursorPointer,
@@ -12,8 +12,8 @@
     'text-gray-400 border-gray-200': disabled ,
     '!cursor-not-allowed': cursorNotAllowed,
     'bg-gray-200': isDisabledPrimary,
-    'px-6 py-3': isBase,
-    'px-4 py-2': isSm,
+    'px-5 py-2': isBase,
+    'px-3 py-1.5': isSm,
   }"
   [disabled]="disabled"
   [type]="type"
@@ -22,7 +22,7 @@
   <span
     class="block transition-all duration-200"
     [ngClass]="{
-      'group-hover:scale-110 group-focus-visible:scale-110': scaleTextOnHover
+      'group-hover:scale-105 group-focus-visible:scale-105': scaleTextOnHover
     }"
   >
     {{ label }}

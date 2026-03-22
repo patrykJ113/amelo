@@ -4,7 +4,7 @@
     type="text"
     placeholder=" "
     class="peer w-full border-2 border-gray-200 rounded-lg
-           px-3 pt-6 pb-1.5 outline-none
+           px-3 pt-5 pb-1 outline-none
            transition-all duration-200 focus:ring-4
            placeholder-transparent"
     [formControl]="control"
@@ -23,9 +23,9 @@
 
   <label
     class="absolute left-3 transition-all duration-200 pointer-events-none
-           top-1 text-sm  leading-6
-           peer-focus:top-1 peer-focus:text-sm peer-focus:leading-6
-           peer-placeholder-shown:top-6 peer-placeholder-shown:text-base
+           top-1 text-xs leading-5
+           peer-focus:top-1 peer-focus:text-xs peer-focus:leading-5
+           peer-placeholder-shown:top-[18px] peer-placeholder-shown:text-sm
            peer-placeholder-shown:leading-6"
     [ngClass]="[isError ?
                'peer-focus:text-red-500 peer-placeholder-shown:text-red-600 text-red-500' :
@@ -41,7 +41,7 @@
   <div class="absolute top-1/2 -translate-y-1/2 right-2 py-2 bg-white flex items-center pointer-events-none">
     <svg-icon
       src="arrow.svg"
-      class="size-6 inline-flex text-gray-600 transition-all duration-200"
+      class="size-5 inline-flex text-gray-600 transition-all duration-200"
       [ngClass]="[isOpen ? 'rotate-180' : 'rotate-0',
                   disabled ?
                   '!text-gray-300' :

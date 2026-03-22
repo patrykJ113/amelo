@@ -5,7 +5,7 @@
           hover:shadow-xl hover:shadow-gray-300/30 hover:border-gray-400/60
           focus:shadow-xl focus:shadow-gray-300/30 focus:border-gray-400/60 focus:outline-none"
 >
-  <vertical-spacing gap="4">
+  <vertical-spacing gap="2">
     <div class="bg-gray-100 md:h-[250px] rounded-md flex justify-center items-center relative aspect-square md:aspect-auto">
       @if (listingHasPicture) {
         @if (blobUrl) {
@@ -35,10 +35,10 @@
     </div>
 
     <div>
-      <div class="text-lg font-medium line-clamp-2 h-14">
+      <div class="text-sm font-medium line-clamp-2 h-10">
         {{ listing.title }}
       </div>
-      <div class="text-gray-400">
+      <div class="text-gray-400 text-xs">
         {{ listing.price | currency:'USD':'symbol':'1.0-0' }}
       </div>
     </div>
