@@ -15,6 +15,7 @@ import {Alert} from '@components/alert/alert';
 import {getErrorMessageForCode} from '@helpers/get-error-message-for-code';
 import {DialogRegistryService} from '@services/dialog-registry.service';
 import {InputType} from '@typings/input-type';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'login-form',
@@ -46,7 +47,9 @@ export class LoginForm implements OnDestroy {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private drs: DialogRegistryService
+    private drs: DialogRegistryService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -97,6 +100,8 @@ export class LoginForm implements OnDestroy {
           if (barer) {
             this.authService.setToken(barer.substring(7))
             this.drs.get('auth-form')?.close()
+            const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/listings'
+            this.router.navigateByUrl(returnUrl)
           }
         },
         error: err => {

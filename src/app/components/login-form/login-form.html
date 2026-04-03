@@ -5,51 +5,49 @@
     </div>
   }
 
-  <vertical-spacing gap="2" items="center">
+  <vertical-spacing gap="1" items="center">
     <h1 class="text-2xl font-medium">
       Log In
     </h1>
-
-    <p class="leading-5 text-gray-400">
+    <p class="text-sm text-gray-400">
       Welcome back! Choose a login method below
     </p>
   </vertical-spacing>
 
-  <div class="mt-5">
+  <div class="mt-4">
     <oauth-button-group/>
   </div>
 
-
-  <div class="mt-8 mb-3">
-    <vertical-spacing gap="5">
+  <div class="mt-4">
+    <vertical-spacing gap="3">
       <alert
         [message]="errorMessage"
         type="ERROR"
         [show]="showError"
       />
-
       <divider-with-text
         text="Or continue with email"
       />
     </vertical-spacing>
   </div>
 
-  <vertical-spacing gap="5">
-    <app-input
-      label="E-mail"
-      type="email"
-      cdkFocusInitial
-      [control]="getControl('email')"
-    />
-
-    <app-input
-      label="Password"
-      [type]="passwordInputType"
-      [control]="getControl('password')"
-      [svgFileName]="passwordSvgFileName"
-      [svgCb]="showPassword"
-    />
-  </vertical-spacing>
+  <div class="mt-4">
+    <vertical-spacing gap="4">
+      <app-input
+        label="E-mail"
+        type="email"
+        cdkFocusInitial
+        [control]="getControl('email')"
+      />
+      <app-input
+        label="Password"
+        [type]="passwordInputType"
+        [control]="getControl('password')"
+        [svgFileName]="passwordSvgFileName"
+        [svgCb]="showPassword"
+      />
+    </vertical-spacing>
+  </div>
 
   <div class="flex justify-end mt-2">
     <reveal-underline
@@ -60,15 +58,14 @@
     />
   </div>
 
-  <div class="mt-7">
+  <div class="mt-5">
     <vertical-spacing gap="3" items="center">
       <app-button
         label="Sign In"
         class="w-full"
         (click)="logIn()"
       />
-
-      <div class="text-gray-500">
+      <div class="text-sm text-gray-500">
         <span class="mr-1.5">No account ?</span>
         <reveal-underline
           text="Sign Up"
