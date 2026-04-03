@@ -1,0 +1,38 @@
+<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- glow -->
+  <ellipse cx="100" cy="175" rx="45" ry="8" fill="#BFDBFE" opacity="0.5"/>
+
+  <!-- ghost body -->
+  <path d="M45 105 Q45 55 100 55 Q155 55 155 105 L155 162
+           Q144 152 133 162 Q122 172 111 162 Q100 152 89 162 Q78 172 67 162 Q56 152 45 162 Z"
+        fill="#BFDBFE"/>
+
+  <!-- ghost inner shading -->
+  <path d="M60 105 Q60 70 100 70 Q140 70 140 105 L140 145
+           Q132 138 124 145 Q116 152 108 145 Q100 138 92 145 Q84 152 76 145 Q68 138 60 145 Z"
+        fill="#DBEAFE" opacity="0.5"/>
+
+  <!-- left eye -->
+  <ellipse cx="82" cy="105" rx="10" ry="12" fill="white"/>
+  <circle cx="85" cy="107" r="5.5" fill="#1E40AF"/>
+  <circle cx="87" cy="105" r="2" fill="white"/>
+
+  <!-- right eye -->
+  <ellipse cx="118" cy="105" rx="10" ry="12" fill="white"/>
+  <circle cx="121" cy="107" r="5.5" fill="#1E40AF"/>
+  <circle cx="123" cy="105" r="2" fill="white"/>
+
+  <!-- little smile -->
+  <path d="M90 126 Q100 133 110 126" stroke="#93C5FD" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- floating sparkles -->
+  <circle cx="32" cy="72" r="4" fill="#BFDBFE"/>
+  <circle cx="168" cy="60" r="6" fill="#C7D2FE"/>
+  <circle cx="22" cy="130" r="3" fill="#C7D2FE"/>
+  <circle cx="178" cy="128" r="4" fill="#BFDBFE"/>
+  <circle cx="155" cy="40" r="3" fill="#BFDBFE"/>
+  <circle cx="52" cy="40" r="5" fill="#C7D2FE"/>
+
+  <!-- question mark -->
+  <text x="148" y="100" font-size="28" font-weight="900" fill="#93C5FD" font-family="sans-serif">?</text>
+</svg>
