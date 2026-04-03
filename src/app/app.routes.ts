@@ -11,21 +11,16 @@ import {RegisterPage} from '@pages/register-page/register-page';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'auth',
     children: [
       {
-        path: 'auth',
-        children: [
-          {
-            path: 'login',
-            component: LoginPage
-          },
-          {
-            path: 'register',
-            component: RegisterPage
-          }
-        ]
+        path: 'login',
+        component: LoginPage
       },
+      {
+        path: 'register',
+        component: RegisterPage
+      }
     ]
   },
   {
