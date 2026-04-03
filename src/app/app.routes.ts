@@ -64,10 +64,10 @@ export const routes: Routes = [
           }
         ]
       },
-      {
-        path: '**',
-        component: NotFound
-      },
     ]
+  },
+  {
+    path: '**',
+    component: NotFound
   },
 ];
