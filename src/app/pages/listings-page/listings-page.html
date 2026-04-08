@@ -15,30 +15,18 @@
     }
   } @else {
     <div class="col-span-full flex justify-center">
-      <vertical-spacing
-        gap="5"
-        items="center"
-      >
-        @if (errorOccurred) {
-          <svg-icon
-            src="db-off.svg"
-            class="inline-flex size-40 text-red-300"
-          />
-        } @else {
-          <svg-icon
-            src="magnifying-glass-minus.svg"
-            class="inline-flex size-40 text-gray-300"
-          />
-
-          <h1 class="text-xl text-gray-700">
-            No Listing found
-          </h1>
-        }
-
-        @if (errorOccurred) {
-          <p class="text-red-950">There was a problem with the server. Please try again later</p>
-        }
-      </vertical-spacing>
+      @if (errorOccurred) {
+        <server-error
+          title="Something went wrong"
+          subTitle="We couldn't load the listings. This is likely a temporary issue on our end."
+          [retryCallBack]="retry"
+        />
+      } @else {
+        <not-found-error
+          title="No listings found"
+          subTitle="There are no listings available at the moment"
+        />
+      }
     </div>
   }
 </div>

@@ -8,8 +8,8 @@ import {Loading} from '@components/loading/loading';
 import {ImageSlider} from '@components/image/image-slider/image-slider';
 import {ListingInfoSection} from '@components/listing/listing-info-section/listing-info-section';
 import {ListingDescriptionSection} from '@components/listing/listing-description-section/listing-description-section';
-import {SvgIconComponent} from 'angular-svg-icon';
-import {AppButton} from '@components/app/app-button/app-button';
+import {NotFoundError} from '@components/not-found-error/not-found-error';
+import {ServerError} from '@components/server-error/server-error';
 
 @Component({
   selector: 'listing-page',
@@ -18,8 +18,8 @@ import {AppButton} from '@components/app/app-button/app-button';
     ImageSlider,
     ListingInfoSection,
     ListingDescriptionSection,
-    SvgIconComponent,
-    AppButton,
+    NotFoundError,
+    ServerError,
   ],
   templateUrl: './listing-page.html',
   styleUrl: './listing-page.css'
@@ -82,7 +82,7 @@ export class ListingPage implements OnInit {
     return this.errorType === 'server-error'
   }
 
-  retry() {
+  retry = () => {
     this.errorType = null
     if (this.listingId) this.loadListing(this.listingId)
   }

@@ -4,10 +4,10 @@ import {ListingService} from '@services/listing.service';
 import {GetAllListingsResponse} from '@typings/listing';
 import {RouterLink} from '@angular/router';
 import {Loading} from '@components/loading/loading';
-import {SvgIconComponent} from 'angular-svg-icon';
-import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {RequestStatus} from '@typings/request-status';
 import {AuthFormDialog} from '@components/auth-form-dialog/auth-form-dialog.component';
+import {NotFoundError} from '@components/not-found-error/not-found-error';
+import {ServerError} from '@components/server-error/server-error';
 
 @Component({
   selector: 'listings-page',
@@ -15,9 +15,9 @@ import {AuthFormDialog} from '@components/auth-form-dialog/auth-form-dialog.comp
     ListingCard,
     RouterLink,
     Loading,
-    SvgIconComponent,
-    VerticalSpacing,
     AuthFormDialog,
+    NotFoundError,
+    ServerError,
   ],
   templateUrl: './listings-page.html',
   styleUrl: './listings-page.css',
@@ -52,6 +52,11 @@ export class ListingsPage implements OnInit {
 
   get errorOccurred() {
     return this.requestStatus === 'Error'
+  }
+
+  retry = () => {
+    this.requestStatus = 'Not Sent'
+    this.getListings()
   }
 
   showLoader() {

@@ -22,44 +22,16 @@
 }
 
 @if (isNotFound) {
-  <div class="flex items-center justify-center py-20">
-    <div class="flex flex-col items-center gap-6 text-center">
-      <div class="rounded-full p-8 bg-slate-100 shadow-lg shadow-slate-200">
-        <svg-icon
-          src="magnifying-glass-minus.svg"
-          class="inline-flex size-20 text-indigo-300"
-        />
-      </div>
-
-      <div class="flex flex-col gap-1">
-        <p class="text-2xl font-semibold text-slate-700">Listing not found</p>
-        <p class="text-slate-400">This listing doesn't exist or may have been removed</p>
-      </div>
-    </div>
-  </div>
+  <not-found-error
+    title="Listing not found"
+    subTitle="This listing doesn't exist or may have been removed"
+  />
 }
 
 @if (isServerError) {
-  <div class="flex items-center justify-center py-20">
-    <div class="flex flex-col items-center gap-8 text-center max-w-sm">
-      <div class="rounded-full p-8 bg-red-50 shadow-lg shadow-red-100">
-        <svg-icon
-          src="warning.svg"
-          class="inline-flex size-20 text-red-400"
-        />
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <p class="text-2xl font-semibold text-slate-800">Something went wrong</p>
-        <p class="text-slate-400 leading-relaxed">We couldn't load this listing. This is likely a temporary issue on our end.</p>
-      </div>
-
-      <div class="w-full h-px bg-slate-100"></div>
-
-      <div class="flex flex-col items-center gap-3 w-full">
-        <app-button label="Try again" (click)="retry()" class="w-full"/>
-        <p class="text-xs text-slate-400/80">If the problem persists, please come back later</p>
-      </div>
-    </div>
-  </div>
+  <server-error
+    title="Something went wrong"
+    subTitle="We couldn't load this listing. This is likely a temporary issue on our end."
+    [retryCallBack]="retry"
+  />
 }

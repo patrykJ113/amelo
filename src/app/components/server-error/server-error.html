@@ -1,0 +1,22 @@
+<div class="flex items-center justify-center py-20">
+  <div class="flex flex-col items-center gap-8 text-center max-w-sm">
+    <div class="rounded-full p-8 bg-red-50 shadow-lg shadow-red-100">
+      <svg-icon
+        src="warning.svg"
+        class="inline-flex size-20 text-red-400"
+      />
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <p class="text-2xl font-semibold text-slate-800">{{ title }}</p>
+      <p class="text-slate-400 leading-relaxed">{{ subTitle }}</p>
+    </div>
+
+    <div class="w-full h-px bg-slate-100"></div>
+
+    <div class="flex flex-col items-center gap-3 w-full">
+      <app-button label="Try again" (click)="retryCallBack()" class="w-full"/>
+      <p class="text-xs text-slate-400/80">If the problem persists, please come back later</p>
+    </div>
+  </div>
+</div>
