@@ -8,9 +8,8 @@ import {Loading} from '@components/loading/loading';
 import {ImageSlider} from '@components/image/image-slider/image-slider';
 import {ListingInfoSection} from '@components/listing/listing-info-section/listing-info-section';
 import {ListingDescriptionSection} from '@components/listing/listing-description-section/listing-description-section';
-import {RequestStatus} from '@typings/request-status';
 import {SvgIconComponent} from 'angular-svg-icon';
-import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
+import {AppButton} from '@components/app/app-button/app-button';
 
 @Component({
   selector: 'listing-page',
@@ -20,7 +19,7 @@ import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical
     ListingInfoSection,
     ListingDescriptionSection,
     SvgIconComponent,
-    VerticalSpacing,
+    AppButton,
   ],
   templateUrl: './listing-page.html',
   styleUrl: './listing-page.css'
@@ -30,7 +29,7 @@ export class ListingPage implements OnInit {
   listing: Listing | undefined = undefined
   loading: boolean = false
   imageUrls: string[] = []
-  requestStatus: RequestStatus = 'Not Sent'
+  errorType: 'not-found' | 'server-error' | null = null
 
   constructor(
     private listingService: ListingService,
@@ -52,7 +51,7 @@ export class ListingPage implements OnInit {
       },
       error: err => {
         this.hideLoader()
-        this.requestStatus = 'Error'
+        this.errorType = err.status === 404 ? 'not-found' : 'server-error'
         console.error(err)
       }
     })
@@ -75,8 +74,16 @@ export class ListingPage implements OnInit {
     this.loading = false
   }
 
-  get errorOccurred() {
-    return this.requestStatus === 'Error'
+  get isNotFound() {
+    return this.errorType === 'not-found'
   }
 
+  get isServerError() {
+    return this.errorType === 'server-error'
+  }
+
+  retry() {
+    this.errorType = null
+    if (this.listingId) this.loadListing(this.listingId)
+  }
 }
