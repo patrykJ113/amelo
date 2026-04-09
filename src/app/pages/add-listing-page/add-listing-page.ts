@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, signal, ViewChild} from '@angular/core';
 import {ListingForm} from '@components/listing/listing-form/listing-form';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {HorizontalSpacing} from '@components/positioning/horizontal-spacing/horizontal-spacing';
@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {RequestStatus} from '@typings/request-status';
 import {AuthService} from '@services/auth.service';
 import {AddListingButton} from '@components/add-listing-button/add-listing-button';
+import {Alert} from '@components/alert/alert';
 
 @Component({
   selector: 'add-listing-page',
@@ -16,6 +17,7 @@ import {AddListingButton} from '@components/add-listing-button/add-listing-butto
     VerticalSpacing,
     HorizontalSpacing,
     AddListingButton,
+    Alert,
   ],
   templateUrl: './add-listing-page.html',
   styleUrl: './add-listing-page.css'
@@ -24,6 +26,8 @@ export class AddListingPage implements OnInit {
   requestStatus: RequestStatus = 'Not Sent'
   loading: boolean = false
   userId: string | undefined
+  errorMessage: string = ''
+  showError = signal(false)
   @ViewChild(ListingForm) listingForm!: ListingForm
   @ViewChild('alert', { read: ElementRef }) alert!: ElementRef
 
@@ -65,6 +69,8 @@ export class AddListingPage implements OnInit {
       error: err => {
         console.error(err)
         this.requestStatus = 'Error'
+        this.errorMessage = 'An error occurred while creating the listing'
+        this.showError.set(true)
         this.hideLoader()
       }
     })

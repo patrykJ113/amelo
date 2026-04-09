@@ -1,6 +1,12 @@
 <vertical-spacing gap="6">
   <listing-form/>
 
+  <alert
+    type="ERROR"
+    [message]="errorMessage"
+    [show]="showError"
+  />
+
   <horizontal-spacing justify="end">
     <add-listing-button
       [loading]="loading"
