@@ -1,35 +1,36 @@
-<nav class="sticky top-0 left-0 z-20 py-3 px-8 bg-white border-b border-b-gray-300 grid grid-cols-12">
-  <logo
-    class="col-span-4"
-  />
+<nav class="sticky top-0 left-0 z-20 py-3 bg-white border-b border-b-gray-300">
+  <div class="grid mx-5 gap-4 grid-cols-4 sm:grid-cols-8 sm:mx-10 md:grid-cols-12 md:mx-16 md:gap-6 lg:mx-20 2xl:mx-auto 2xl:w-3/4">
+    <logo
+      class="col-span-4"
+    />
 
-  <div class="col-span-4 md:col-span-4 flex gap-2 justify-end md:justify-center items-center">
-    <div
-      #navPillContainer
-      class="relative flex items-center p-1 rounded-full"
-      (mouseleave)="onNavLeave()"
-    >
+    <div class="col-span-4 md:col-span-4 flex gap-2 justify-end md:justify-center items-center">
       <div
-        class="absolute inset-y-1 bg-gray-200 rounded-full transition-all duration-200 pointer-events-none"
-        [style.left.px]="pillLeft"
-        [style.width.px]="pillWidth"
-      ></div>
+        #navPillContainer
+        class="relative flex items-center p-1 rounded-full"
+        (mouseleave)="onNavLeave()"
+      >
+        <div
+          class="absolute inset-y-1 bg-gray-200 rounded-full transition-all duration-200 pointer-events-none"
+          [style.left.px]="pillLeft"
+          [style.width.px]="pillWidth"
+        ></div>
 
-      <a
-        #navLink0
-        [routerLink]="'listing/add'"
-        class="relative z-10 px-3 py-1.5 text-sm font-medium rounded-full cursor-pointer"
-        (mouseenter)="onNavHover(0)"
-      >Add Listing</a>
+        <a
+          #navLink0
+          [routerLink]="'listing/add'"
+          class="relative z-10 px-3 py-1.5 text-sm font-medium rounded-full cursor-pointer"
+          (mouseenter)="onNavHover(0)"
+        >Add Listing</a>
 
-      <a
-        #navLink1
-        [routerLink]="'listings'"
-        class="relative z-10 px-3 py-1.5 text-sm font-medium rounded-full cursor-pointer"
-        (mouseenter)="onNavHover(1)"
-      >Listings</a>
+        <a
+          #navLink1
+          [routerLink]="'listings'"
+          class="relative z-10 px-3 py-1.5 text-sm font-medium rounded-full cursor-pointer"
+          (mouseenter)="onNavHover(1)"
+        >Listings</a>
+      </div>
     </div>
-  </div>
 
   <div class="col-span-4 flex justify-end">
     @if (isLoggedIn) {
@@ -53,5 +54,6 @@
         />
       </horizontal-spacing>
     }
+  </div>
   </div>
 </nav>
