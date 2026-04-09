@@ -4,12 +4,14 @@ import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical
 import {CurrencyPipe} from '@angular/common';
 import {ListingService} from '@services/listing.service';
 import {Router} from '@angular/router';
+import {SvgIconComponent} from 'angular-svg-icon';
 
 @Component({
   selector: 'listing-card',
   imports: [
     VerticalSpacing,
-    CurrencyPipe
+    CurrencyPipe,
+    SvgIconComponent,
   ],
   templateUrl: './listing-card.html',
   styleUrl: './listing-card.css'
@@ -44,8 +46,11 @@ export class ListingCard implements OnInit {
         },
         error: err => {
           console.error(err)
+          this.hideSkeleton()
         }
       })
+    } else {
+      this.hideSkeleton()
     }
   }
 
