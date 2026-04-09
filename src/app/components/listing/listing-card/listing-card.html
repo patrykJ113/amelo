@@ -1,11 +1,11 @@
 <div
   (keydown)="onKeyDown($event)"
   tabindex="0"
-  class="border border-gray-300 p-3 bg-white rounded-lg cursor-pointer transition-all duration-150 group
+  class="border relative border-gray-300 p-3 bg-white rounded-lg cursor-pointer transition-all duration-150 group
           hover:shadow-xl hover:shadow-gray-300/30 hover:border-gray-400/60
           focus:shadow-xl focus:shadow-gray-300/30 focus:border-gray-400/60 focus:outline-none"
 >
-  <vertical-spacing gap="2">
+  <vertical-spacing gap="4">
     <div class="bg-gray-100 md:h-[250px] rounded-md flex justify-center items-center relative aspect-square md:aspect-auto">
       @if (listingHasPicture) {
         @if (blobUrl) {
@@ -27,20 +27,27 @@
           class="size-20"
           (load)="onLoad()"
         >
-
-        @if (showSkeletonLoader) {
-          <div class="absolute inset-0 animate-pulse bg-gray-300/90 rounded-md"></div>
-        }
       }
     </div>
 
     <div>
-      <div class="text-sm font-medium line-clamp-2 h-10">
+      <div class="text font-medium line-clamp-2 h-10">
         {{ listing.title }}
       </div>
-      <div class="text-gray-400 text-xs">
+
+      <div class="text-gray-400 text-sm">
         {{ listing.price | currency:'USD':'symbol':'1.0-0' }}
       </div>
     </div>
   </vertical-spacing>
+
+  @if (showSkeletonLoader) {
+    <div class="absolute inset-0 flex flex-col gap-2 bg-white p-3 rounded-lg">
+      <div class="shimmer md:h-[250px] rounded-md aspect-square md:aspect-auto"></div>
+      <div class="flex flex-col gap-2 pt-1">
+        <div class="shimmer h-3.5 rounded-full w-3/4"></div>
+        <div class="shimmer h-3.5 rounded-full w-1/3"></div>
+      </div>
+    </div>
+  }
 </div>
