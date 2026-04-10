@@ -10,7 +10,7 @@ import {
   ViewChildren
 } from '@angular/core';
 import {DropdownOption} from '@typings/dropdown-option';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {getErrorMessage} from '@helpers/get-error-message';
@@ -18,7 +18,6 @@ import {getErrorMessage} from '@helpers/get-error-message';
 @Component({
   selector: 'combobox',
   imports: [
-    ReactiveFormsModule,
     NgClass,
     SvgIconComponent
   ],
@@ -29,15 +28,26 @@ export class Combobox implements OnInit, OnChanges {
   @Input() options: DropdownOption[] = []
   @Input() label: string = ''
   @Input() control!: FormControl
-  @Input() categoryObjControl!: FormControl
   @ViewChild('input') inputRef!: ElementRef<HTMLInputElement>;
   @ViewChildren('optionElement') optionRef!: QueryList<ElementRef<HTMLDivElement>>;
+
+  inputText: string = ''
   filteredOptions: DropdownOption[] = []
   isOpen: boolean = false
   indexOfFocusedOption: number = 0
 
   ngOnInit() {
     this.resetFilteredOptions()
+    if (this.control.value?.label) {
+      this.inputText = this.control.value.label
+    }
+    this.control.valueChanges.subscribe(value => {
+      if (!value) {
+        this.inputText = ''
+      } else if (value?.label) {
+        this.inputText = value.label
+      }
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -46,10 +56,13 @@ export class Combobox implements OnInit, OnChanges {
     }
   }
 
-  handleInput() {
+  handleInput(event: Event) {
+    this.inputText = (event.target as HTMLInputElement).value
     this.filteredOptions = this.options.filter(
-      opt => opt.label.toLowerCase().includes(this.control.getRawValue().toLowerCase())
+      opt => opt.label.toLowerCase().includes(this.inputText.toLowerCase())
     )
+    this.control.setValue(null)
+    this.control.markAsDirty()
   }
 
   handleFocus() {
@@ -61,20 +74,31 @@ export class Combobox implements OnInit, OnChanges {
     this.isOpen = false
     this.resetIndex()
     this.resetFilteredOptions()
+    this.control.markAsTouched()
   }
 
   setValueOnBlur() {
-    const value = this.control.getRawValue().toLowerCase()
-    if (!value) return
-    const firstMatchedOption = this.filteredOptions.find(option => option.label.toLowerCase().startsWith(value))
-    if(firstMatchedOption) {
-      this.categoryObjControl.setValue(firstMatchedOption)
-      this.control.setValue(firstMatchedOption.label)
+    if (!this.inputText) {
+      this.control.setValue(null)
+      return
+    }
+    const firstMatch = this.filteredOptions.find(
+      opt => opt.label.toLowerCase().startsWith(this.inputText.toLowerCase())
+    )
+    if (firstMatch) {
+      this.control.setValue(firstMatch)
+    } else {
+      this.control.setValue(null)
     }
   }
 
+  selectOption(option: DropdownOption) {
+    this.control.setValue(option)
+    this.inputText = option.label
+  }
+
   handleMouseDownOnOption(option: DropdownOption) {
-    this.control.setValue(option.label)
+    this.selectOption(option)
   }
 
   scrollFocusedOptionIntoView() {
@@ -84,12 +108,12 @@ export class Combobox implements OnInit, OnChanges {
 
   handleKeyDown({key}: KeyboardEvent) {
     if (key === 'ArrowDown') {
-      if (this.indexOfFocusedOption !== this.options.length - 1) {
+      if (this.indexOfFocusedOption !== this.filteredOptions.length - 1) {
         ++this.indexOfFocusedOption
       } else {
         this.resetIndex()
       }
-      this.scrollFocusedOptionIntoView();
+      this.scrollFocusedOptionIntoView()
     }
 
     if (key === 'ArrowUp') {
@@ -102,7 +126,10 @@ export class Combobox implements OnInit, OnChanges {
     }
 
     if (key === 'Enter') {
-      this.control.setValue(this.filteredOptions[this.indexOfFocusedOption].label)
+      const option = this.filteredOptions[this.indexOfFocusedOption]
+      if (option) {
+        this.selectOption(option)
+      }
       this.inputRef.nativeElement.blur()
     }
 

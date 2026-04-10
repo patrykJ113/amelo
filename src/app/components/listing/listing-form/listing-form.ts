@@ -4,7 +4,6 @@ import {AppTextarea} from "@components/app/app-textarea/app-textarea";
 import {Combobox} from "@components/combobox/combobox";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {DropdownOption} from '@typings/dropdown-option';
-import {optionExistsValidator} from '@validators/option-exists';
 import {CategoryService} from '@services/category.service';
 import {Panel} from '@components/panel/panel';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
@@ -40,10 +39,8 @@ export class ListingForm implements OnInit, AfterViewInit {
   ) {
     this.form = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
-      category: ['', [optionExistsValidator(this.primaryCategories), Validators.required]],
-      category_object: [''],
-      sub_category: ['', [Validators.required]],
-      sub_category_object: [''],
+      category: [null, [Validators.required]],
+      sub_category: [null, [Validators.required]],
       price: ['', [Validators.required, Validators.min(0), Validators.max(10000000)]],
       description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(2000)]],
       files: [null]
@@ -76,21 +73,13 @@ export class ListingForm implements OnInit, AfterViewInit {
   }
 
   watchPrimaryCategory() {
-    this.getControl('category_object').valueChanges.subscribe(value => {
-      if (value?.id) {
-        this.onPrimarySelected(value.id)
-      }
-    })
-
-    this.getControl('category').valueChanges.subscribe(value => {
-      if (!value) {
-        this.onPrimaryCleared()
-      }
+    this.getControl('category').valueChanges.subscribe((value: DropdownOption | null) => {
+      value?.id ? this.onPrimarySelected(value.id) : this.onPrimaryCleared()
     })
   }
 
   onPrimarySelected(primaryId: string) {
-    const primaryChanged = this.activePrimaryId !== primaryId
+    if (this.activePrimaryId === primaryId) return
     this.activePrimaryId = primaryId
 
     this.subCategories = this.allCategories
@@ -98,23 +87,16 @@ export class ListingForm implements OnInit, AfterViewInit {
       .map(c => ({ id: c.id, label: this.capitalize(c.name) }))
 
     const subControl = this.getControl('sub_category')
-    subControl.setValidators([optionExistsValidator(this.subCategories), Validators.required])
-
     subControl.enable()
-
-    if (primaryChanged) {
-      subControl.setValue('')
-      this.getControl('sub_category_object').setValue(null)
-    }
+    subControl.setValue(null)
   }
 
   onPrimaryCleared() {
     this.activePrimaryId = null
     this.subCategories = []
     const subControl = this.getControl('sub_category')
-    subControl.setValue('')
+    subControl.setValue(null)
     subControl.disable()
-    this.getControl('sub_category_object').setValue(null)
   }
 
   hideLoader() {

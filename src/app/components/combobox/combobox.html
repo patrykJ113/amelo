@@ -7,8 +7,9 @@
            px-3 pt-5 pb-1 outline-none
            transition-all duration-200 focus:ring-4
            placeholder-transparent"
-    [formControl]="control"
-    (input)="handleInput()"
+    [value]="inputText"
+    [attr.disabled]="control.disabled ? '' : null"
+    (input)="handleInput($event)"
     (focus)="handleFocus()"
     (blur)="handleBlur()"
     (keydown)="handleKeyDown($event)"

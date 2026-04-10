@@ -46,13 +46,13 @@ export class AddListingPage implements OnInit {
     if (!this.listingForm.form || this.loading) return
 
     this.showLoader()
-    const {title, description, price, sub_category_object, files} = this.listingForm.form.value
+    const {title, description, price, sub_category, files} = this.listingForm.form.value
 
     const newListing: ListingRequestBody = {
       title,
       description,
       price,
-      category_id: sub_category_object.id
+      category_id: sub_category.id
     }
 
     if (!this.userId) return;
