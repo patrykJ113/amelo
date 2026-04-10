@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {AppInput} from "@components/app/app-input/app-input";
 import {AppTextarea} from "@components/app/app-textarea/app-textarea";
 import {Combobox} from "@components/combobox/combobox";
@@ -10,6 +10,7 @@ import {Panel} from '@components/panel/panel';
 import {VerticalSpacing} from '@components/positioning/vertical-spacing/vertical-spacing';
 import {ImagePicker} from '@components/image/image-picker/image-picker';
 import {getFormControl} from '@helpers/get-form-control';
+import {Category} from '@typings/category';
 
 @Component({
   selector: 'listing-form',
@@ -25,10 +26,13 @@ import {getFormControl} from '@helpers/get-form-control';
   templateUrl: './listing-form.html',
   styleUrl: './listing-form.css'
 })
-export class ListingForm implements OnInit {
+export class ListingForm implements OnInit, AfterViewInit {
   form: FormGroup
-  carCategories: DropdownOption[] = []
+  allCategories: Category[] = []
+  primaryCategories: DropdownOption[] = []
+  subCategories: DropdownOption[] = []
   loading: boolean = true
+  private activePrimaryId: string | null = null
 
   constructor(
     private fb: FormBuilder,
@@ -36,8 +40,10 @@ export class ListingForm implements OnInit {
   ) {
     this.form = this.fb.group({
       title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
-      category: ['', [optionExistsValidator(this.carCategories), Validators.required]],
+      category: ['', [optionExistsValidator(this.primaryCategories), Validators.required]],
       category_object: [''],
+      sub_category: ['', [Validators.required]],
+      sub_category_object: [''],
       price: ['', [Validators.required, Validators.min(0), Validators.max(10000000)]],
       description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(2000)]],
       files: [null]
@@ -46,17 +52,20 @@ export class ListingForm implements OnInit {
 
   ngOnInit() {
     this.getCategories()
+    this.watchPrimaryCategory()
+  }
+
+  ngAfterViewInit() {
+    this.getControl('sub_category').disable()
   }
 
   getCategories() {
     this.categoryService.getAll().subscribe({
-      next: categoryies => {
-        categoryies.forEach(categorie => {
-          this.carCategories.push({
-            id: categorie.id,
-            label: this.capitalize(categorie.name)
-          })
-        })
+      next: categories => {
+        this.allCategories = categories
+        categories
+          .filter(c => c.primary_id === null)
+          .forEach(c => this.primaryCategories.push({ id: c.id, label: this.capitalize(c.name) }))
         this.hideLoader()
       },
       error: err => {
@@ -64,6 +73,48 @@ export class ListingForm implements OnInit {
         console.error(err)
       }
     })
+  }
+
+  watchPrimaryCategory() {
+    this.getControl('category_object').valueChanges.subscribe(value => {
+      if (value?.id) {
+        this.onPrimarySelected(value.id)
+      }
+    })
+
+    this.getControl('category').valueChanges.subscribe(value => {
+      if (!value) {
+        this.onPrimaryCleared()
+      }
+    })
+  }
+
+  onPrimarySelected(primaryId: string) {
+    const primaryChanged = this.activePrimaryId !== primaryId
+    this.activePrimaryId = primaryId
+
+    this.subCategories = this.allCategories
+      .filter(c => c.primary_id === primaryId)
+      .map(c => ({ id: c.id, label: this.capitalize(c.name) }))
+
+    const subControl = this.getControl('sub_category')
+    subControl.setValidators([optionExistsValidator(this.subCategories), Validators.required])
+
+    subControl.enable()
+
+    if (primaryChanged) {
+      subControl.setValue('')
+      this.getControl('sub_category_object').setValue(null)
+    }
+  }
+
+  onPrimaryCleared() {
+    this.activePrimaryId = null
+    this.subCategories = []
+    const subControl = this.getControl('sub_category')
+    subControl.setValue('')
+    subControl.disable()
+    this.getControl('sub_category_object').setValue(null)
   }
 
   hideLoader() {

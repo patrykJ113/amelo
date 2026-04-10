@@ -2,13 +2,15 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
   OnInit,
   QueryList,
+  SimpleChanges,
   ViewChild,
   ViewChildren
 } from '@angular/core';
 import {DropdownOption} from '@typings/dropdown-option';
-import {FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {NgClass} from '@angular/common';
 import {SvgIconComponent} from 'angular-svg-icon';
 import {getErrorMessage} from '@helpers/get-error-message';
@@ -23,10 +25,9 @@ import {getErrorMessage} from '@helpers/get-error-message';
   templateUrl: './combobox.html',
   styleUrl: './combobox.css'
 })
-export class Combobox implements OnInit {
+export class Combobox implements OnInit, OnChanges {
   @Input() options: DropdownOption[] = []
   @Input() label: string = ''
-  @Input() disabled: boolean = false
   @Input() control!: FormControl
   @Input() categoryObjControl!: FormControl
   @ViewChild('input') inputRef!: ElementRef<HTMLInputElement>;
@@ -37,7 +38,12 @@ export class Combobox implements OnInit {
 
   ngOnInit() {
     this.resetFilteredOptions()
-    if (this.disabled) this.control.disable()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['options']) {
+      this.resetFilteredOptions()
+    }
   }
 
   handleInput() {

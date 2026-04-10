@@ -17,7 +17,15 @@
         class="col-span-full md:col-span-6 row-start-2"
         [control]="getControl('category')"
         [categoryObjControl]="getControl('category_object')"
-        [options]="carCategories"
+        [options]="primaryCategories"
+      />
+
+      <combobox
+        label="Sub Category"
+        class="col-span-full md:col-span-6 row-start-3"
+        [control]="getControl('sub_category')"
+        [categoryObjControl]="getControl('sub_category_object')"
+        [options]="subCategories"
       />
     </div>
   </panel>

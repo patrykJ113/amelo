@@ -29,7 +29,7 @@ export class AddListingPage implements OnInit {
   errorMessage: string = ''
   showError = signal(false)
   @ViewChild(ListingForm) listingForm!: ListingForm
-  @ViewChild('alert', { read: ElementRef }) alert!: ElementRef
+  @ViewChild('alert', {read: ElementRef}) alert!: ElementRef
 
   constructor(
     private listingService: ListingService,
@@ -46,25 +46,23 @@ export class AddListingPage implements OnInit {
     if (!this.listingForm.form || this.loading) return
 
     this.showLoader()
-    const {title, description, price, category_object, files} = this.listingForm.form.value
+    const {title, description, price, sub_category_object, files} = this.listingForm.form.value
 
     const newListing: ListingRequestBody = {
       title,
       description,
       price,
-      category_id: category_object.id
+      category_id: sub_category_object.id
     }
 
-    if(!this.userId) return;
+    if (!this.userId) return;
 
     this.listingService.create(newListing, files, this.userId).subscribe({
       next: listing => {
-        setTimeout(() => {
-          this.listingForm.form?.reset()
-          this.router.navigate(['listing', listing.id])
-          this.hideLoader()
-          this.requestStatus = 'Success'
-        }, 1000)
+        this.listingForm.form?.reset()
+        this.router.navigate(['listing', listing.id])
+        this.hideLoader()
+        this.requestStatus = 'Success'
       },
       error: err => {
         console.error(err)

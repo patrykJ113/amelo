@@ -15,7 +15,7 @@
     [ngClass]="[isError ?
               'focus:border-red-500 focus:ring-red-500/30 border-red-500' :
               'focus:border-blue-500 focus:ring-blue-500/30 border-gray-300',
-              disabled ?
+              control.disabled ?
                 '!border-gray-200 cursor-not-allowed text-gray-300' :
                 'text-gray-600'
               ]"
@@ -30,7 +30,7 @@
     [ngClass]="[isError ?
                'peer-focus:text-red-500 peer-placeholder-shown:text-red-600 text-red-500' :
                'peer-focus:text-blue-500 peer-placeholder-shown:text-gray-600',
-               disabled ?
+               control.disabled ?
                 'peer-placeholder-shown:!text-gray-300 text-gray-300' :
                 'text-gray-500'
                ]"
@@ -43,7 +43,7 @@
       src="arrow.svg"
       class="size-5 inline-flex text-gray-600 transition-all duration-200"
       [ngClass]="[isOpen ? 'rotate-180' : 'rotate-0',
-                  disabled ?
+                  control.disabled ?
                   '!text-gray-300' :
                   'text-gray-600'
       ]"
@@ -51,7 +51,7 @@
   </div>
 
   @if (isOpen) {
-    <div class="absolute top-[calc(100%+12px)] left-0 w-full border bg-white border-gray-300 rounded-lg max-h-72 overflow-scroll z-10">
+    <div tabindex="-1" class="absolute top-[calc(100%+12px)] left-0 w-full border bg-white border-gray-300 rounded-lg max-h-72 overflow-scroll z-10">
       @if (filteredOptions.length) {
         @for (option of filteredOptions; track option.id) {
           <div

@@ -1,19 +1,9 @@
-export type CategoryType = 'AUDI' |
-  'BMW' |
-  'MERCEDES' |
-  'PORSCHE' |
-  'VOLKSWAGEN' |
-  'OPEL' |
-  'FORD' |
-  'MINI' |
-  'SMART' |
-  'SKODA'
-
 export interface Category {
   id: string
-  name: CategoryType
+  name: string
+  primary_id: string | null
 }
 
 export interface CategoryRequestBody {
-  name: CategoryType
+  name: string
 }

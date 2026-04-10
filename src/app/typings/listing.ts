@@ -1,4 +1,3 @@
-import {CategoryType} from '@typings/category';
 import {Picture} from '@typings/picture';
 
 export interface Listing {
@@ -7,7 +6,7 @@ export interface Listing {
   description: string
   price: number
   category_id: string
-  category_name: CategoryType,
+  category_name: string,
   picture_file_name: string
   pictures: Picture[]
 }
