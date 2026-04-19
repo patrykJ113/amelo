@@ -39,8 +39,8 @@ export class ListingCard implements OnInit {
   }
 
   ngOnInit() {
-    if (this.listing.picture) {
-      this.listingService.getImage(this.listing.id, this.listing.picture.file_name).subscribe({
+    if (this.listing.image) {
+      this.listingService.getImage(this.listing.id, this.listing.image.file_name).subscribe({
         next: blob => {
           this.blobUrl = URL.createObjectURL(blob)
         },
@@ -58,8 +58,8 @@ export class ListingCard implements OnInit {
     this.showSkeletonLoader = false
   }
 
-  get listingHasPicture() {
-    return this.listing.picture?.id
+  get listingHasImage() {
+    return this.listing.image?.id
   }
 
 }

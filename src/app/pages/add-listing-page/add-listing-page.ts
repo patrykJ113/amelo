@@ -9,6 +9,7 @@ import {RequestStatus} from '@typings/request-status';
 import {AuthService} from '@services/auth.service';
 import {AddListingButton} from '@components/add-listing-button/add-listing-button';
 import {Alert} from '@components/alert/alert';
+import {from, of, switchMap, concatMap, toArray} from 'rxjs';
 
 @Component({
   selector: 'add-listing-page',
@@ -46,7 +47,7 @@ export class AddListingPage implements OnInit {
     if (!this.listingForm.form || this.loading) return
 
     this.showLoader()
-    const {title, description, price, sub_category, files} = this.listingForm.form.value
+    const {title, description, price, sub_category} = this.listingForm.form.value
 
     const newListing: ListingRequestBody = {
       title,
@@ -55,9 +56,18 @@ export class AddListingPage implements OnInit {
       category_id: sub_category.id
     }
 
-    if (!this.userId) return;
+    const files: File[] = Array.from(this.listingForm.form.value.files ?? [])
 
-    this.listingService.create(newListing, files, this.userId).subscribe({
+    this.listingService.create(newListing).pipe(
+      switchMap(listing => {
+        if (!files.length) return of(listing)
+        return from(files).pipe(
+          concatMap(file => this.listingService.uploadImage(listing.id, file)),
+          toArray(),
+          switchMap(() => of(listing))
+        )
+      })
+    ).subscribe({
       next: listing => {
         this.listingForm.form?.reset()
         this.router.navigate(['listing', listing.id])

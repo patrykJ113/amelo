@@ -66,6 +66,11 @@ export class AuthService {
     return this.http.post<string>(`${this.authApiUrl}/register`, credentials)
   }
 
+  getAuthorizationHeader(): { Authorization: string } | null {
+    const token = this.getToken()
+    return token ? { Authorization: `Bearer ${token}` } : null
+  }
+
   logOut() {
     this.unsetToken()
   }

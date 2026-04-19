@@ -1,4 +1,4 @@
-import {Picture} from '@typings/picture';
+import {Image} from '@typings/image';
 
 export interface Listing {
   id: string
@@ -6,12 +6,11 @@ export interface Listing {
   description: string
   price: number
   category_id: string
-  category_name: string,
-  picture_file_name: string
-  pictures: Picture[]
+  category_name: string
+  images: Image[]
 }
 
-export type ListingListItem = Pick<Listing, 'id' | 'title' | 'price'> & { picture: null | Picture }
+export type ListingListItem = Pick<Listing, 'id' | 'title' | 'price'> & { image: null | Image }
 
 export type GetAllListingsResponse = ListingListItem[]
 

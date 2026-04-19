@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ListingService} from '@services/listing.service';
 import {ActivatedRoute} from '@angular/router';
 import {Listing} from '@typings/listing';
-import {Picture} from '@typings/picture';
+import {Image} from '@typings/image';
 import {forkJoin} from 'rxjs';
 import {Loading} from '@components/loading/loading';
 import {ImageSlider} from '@components/image/image-slider/image-slider';
@@ -47,7 +47,7 @@ export class ListingPage implements OnInit {
     this.listingService.getById(listingId).subscribe({
       next: listing => {
         this.listing = listing
-        this.listing.pictures.length ? this.loadListingPictures(this.listing.pictures) : this.hideLoader()
+        this.listing.images.length ? this.loadListingImages(this.listing.images) : this.hideLoader()
       },
       error: err => {
         this.hideLoader()
@@ -57,8 +57,8 @@ export class ListingPage implements OnInit {
     })
   }
 
-  loadListingPictures(pictures: Picture[]) {
-    const requests = pictures.map(pic => this.listingService.getImage(this.listing!.id, pic.file_name))
+  loadListingImages(images: Image[]) {
+    const requests = images.map(img => this.listingService.getImage(this.listing!.id, img.file_name))
 
     forkJoin(requests).subscribe(blobs => {
       this.imageUrls = blobs.map(blob => URL.createObjectURL(blob))
